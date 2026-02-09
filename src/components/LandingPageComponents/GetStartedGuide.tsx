@@ -40,7 +40,7 @@ const GetStartedGuide: React.FC = () => {
           </div>
         </div>
         <div className="">
-          <img src="/src/assets/Push notifications-cuate.svg" alt="" />
+          <img src="/Push notifications-cuate.svg" alt="" />
         </div>
       </div>
     </div>
