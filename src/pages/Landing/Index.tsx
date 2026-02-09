@@ -13,7 +13,7 @@ import ContactSection from "../../components/LandingPageComponents/ContactSectio
 const Index: React.FC = () => {
   return (
     <div>
-      <div className="w-full flex flex-col-reverse md:grid md:grid-cols-2 justify-between relative md:mt-30">
+      <div className="w-full md:w-[95%] mx-auto flex flex-col-reverse md:grid md:grid-cols-2 justify-between relative md:mt-30">
         <div className="mt-5">
           <div className="space-y-6 md:space-y-10 text-black px-4 w-full">
             <h2 className="text-3xl md:text-5xl font-starnest-mid text-left">

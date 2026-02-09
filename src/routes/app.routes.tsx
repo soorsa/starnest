@@ -14,6 +14,9 @@ import ContactUs from "../pages/Landing/Contact-Us";
 import Login from "../pages/Auth/Login";
 import Register from "../pages/Auth/Register";
 import DashboardIndex from "../pages/Dashboard/Index";
+import Plans from "../pages/Dashboard/Plans";
+import MyPlans from "../pages/Dashboard/MyPlans";
+import MyPlanDetail from "../pages/Dashboard/MyPlanDetail";
 
 const DashboardLayout = lazy(
   () => import("../pages/Dashboard/DashboardLayout")
@@ -34,16 +37,19 @@ const AppRoutes = () => {
             </Route>
 
             {/* Protected Routes - Dashboard */}
-            <Route path="/dashboard" element={<ProtectedRoutes />}>
+            <Route path="/dashboard/*" element={<ProtectedRoutes />}>
               <Route element={<DashboardLayout />}>
                 <Route index element={<DashboardIndex />} />
+                <Route path="plans" element={<Plans />} />
+                <Route path="my-plans" element={<MyPlans />} />
+                <Route path="my-plans/:id" element={<MyPlanDetail />} />
               </Route>
             </Route>
 
             {/* Login Route */}
             <Route path="/" element={<AuthenticationRoute />}>
               <Route element={<AuthLayout />}>
-                <Route path="/login" element={<Login />} />
+                <Route path="/login" index element={<Login />} />
                 <Route path="/register" element={<Register />} />
               </Route>
             </Route>

@@ -42,6 +42,7 @@ const Register = () => {
       first_name: values.first_name,
       last_name: values.last_name,
     };
+    console.log(payload);
     // register(payload);
   };
   return (

@@ -27,6 +27,7 @@ const Login = () => {
     setSubmitting: (isSubmitting: boolean) => void
   ) => {
     setSubmitting(false);
+    console.log(values);
     // login(values);
     // Auth.login(values, { setSubmitting });
   };

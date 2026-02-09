@@ -31,16 +31,17 @@ const InfoCard: React.FC<Props> = ({
     >
       <div className="flex justify-between items-start ">
         <div className="flex flex-col gap-2 min-w-0">
-          <div className="text-xs sm:text-sm line-clamp-1">{title}</div>
           <div className="flex items-center gap-3">
-            <div className="text-2xl truncate font-starnest-mid">{value}</div>
+            <div className="text-xs sm:text-sm truncate line-clamp-1">
+              {title}
+            </div>
             {secondaryValue && (
               <div
                 className={`${
                   isPositive
                     ? "bg-green-50 text-green-500"
                     : "bg-red-50 text-red-500"
-                } text-xs flex items-center gap-1 px-2 rounded-full`}
+                } text-xs hidden md:flex items-center gap-1 px-2 rounded-full`}
               >
                 {isPositive ? (
                   <TrendingUp size={14} />
@@ -51,8 +52,37 @@ const InfoCard: React.FC<Props> = ({
               </div>
             )}
           </div>
+          <div className="flex items-center gap-3">
+            <div className="text-lg md:text-2xl truncate font-starnest-mid">
+              {value}
+            </div>
+          </div>
         </div>
-        <div className="bg-primary p-4 rounded-full">{icon}</div>
+        {secondaryValue ? (
+          <div
+            className={`${
+              isPositive
+                ? "bg-green-50 text-green-500"
+                : "bg-red-50 text-red-500"
+            } text-xs flex md:hidden justify-center items-center h-14 w-14 rounded-full`}
+          >
+            <div className="flex flex-col items-center justify-center">
+              {isPositive ? (
+                <TrendingUp size={14} />
+              ) : (
+                <TrendingDown size={14} />
+              )}
+              {secondaryValue}
+            </div>
+          </div>
+        ) : (
+          <div className="bg-primary p-4 rounded-full">{icon}</div>
+        )}
+        {secondaryValue && (
+          <div className="bg-primary p-4 rounded-full hidden md:flex">
+            {icon}
+          </div>
+        )}
       </div>
     </div>
   );

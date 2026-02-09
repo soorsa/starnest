@@ -1,4 +1,5 @@
 import { AlertTriangle, TrendingUp } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 interface GoalProgressCardProps {
   title: string;
@@ -17,8 +18,15 @@ export default function GoalProgressCard({
   roi,
   amount,
 }: GoalProgressCardProps) {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate(`/dashboard/my-plans/1`);
+  };
   return (
-    <div className="w-full max-w-md rounded-lg bg-white p-4 border border-gray-100 hover:shadow-xs cursor-pointer">
+    <div
+      onClick={handleClick}
+      className="w-full rounded-lg bg-white p-4 border border-gray-100 hover:shadow-xs cursor-pointer"
+    >
       {/* Top Section */}
       <div className="flex items-start justify-between">
         <div className="flex items-center gap-3">
@@ -51,7 +59,7 @@ export default function GoalProgressCard({
             style={{ width: `${percentage}%` }}
           />
           <div
-            className="h-3 rounded-sm bg-green-500/20 transition-all"
+            className="h-3 rounded-sm bg-gray-800 transition-all"
             style={{ width: `${100 - percentage}%` }}
           />
         </div>
