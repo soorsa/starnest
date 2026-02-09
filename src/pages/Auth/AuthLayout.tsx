@@ -21,7 +21,7 @@ const AuthLayout: React.FC = () => {
         <div className="">
           <img
             // src="/happy-family.png"
-            src="/src/assets/Sign up-pana.svg"
+            src="/Sign up-pana.svg"
             alt=""
             className="w-full h-full object-cover"
           />

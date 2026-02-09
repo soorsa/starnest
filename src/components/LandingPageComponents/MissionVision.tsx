@@ -17,7 +17,7 @@ const MissionVision: React.FC = () => {
       <div className="grid md:grid-cols-3 md:w-[80%] mx-auto">
         <div className="w-[70%] md:w-auto mx-auto md:mx-0">
           <img
-            src="/assets/Personal finance-cuate.svg"
+            src="/Personal finance-cuate.svg"
             alt=""
             className="h-full w-full aspect-square object-cover"
           />
@@ -46,7 +46,7 @@ const MissionVision: React.FC = () => {
 
         <div className="w-[70%] md:w-auto mx-auto md:mx-0">
           <img
-            src="/assets/Finance-amico.svg"
+            src="/Finance-amico.svg"
             alt=""
             className="h-full w-full aspect-square object-cover"
           />
@@ -63,7 +63,7 @@ const MissionVision: React.FC = () => {
           </div>
           <div className="w-1/3">
             <img
-              src="/assets/Personal finance-cuate.svg"
+              src="/Personal finance-cuate.svg"
               alt=""
               className="h-full w-full aspect-square object-cover"
             />
