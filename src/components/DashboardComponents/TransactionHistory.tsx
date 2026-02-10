@@ -1,31 +1,32 @@
-import { CalendarRange, CheckCircle2, LoaderPinwheel } from "lucide-react";
+import {
+  AlertTriangle,
+  ArrowLeftRight,
+  CheckCircle2,
+  Info,
+  LoaderPinwheel,
+} from "lucide-react";
 import React, { useState } from "react";
-import { formatDate, formatPrice } from "../../utils/formatter";
-import Button from "../GeneralComponent/Button";
+import { formatPrice } from "../../utils/formatter";
 
 type Props = {
-  data: PlanPayment[];
+  data: Transaction[];
   isLoading?: boolean;
   isError?: boolean;
 };
 
-const tabs = ["All", "Paid", "Upcomming", "Missed"] as const;
+const tabs = ["All", "Success", "Pending", "Failed"] as const;
 type Tab = (typeof tabs)[number];
 
-const PlanPaymentList: React.FC<Props> = ({ data, isLoading, isError }) => {
+const TransactionHistory: React.FC<Props> = ({ data, isLoading, isError }) => {
   const [activeTab, setActiveTab] = useState<Tab>("All");
   // Find the latest due date among items with status !== 1
-  const unpaidItems = data.filter((item) => item.status !== "paid");
-  const latestDueDate =
-    unpaidItems.length > 0 &&
-    Math.min(...unpaidItems.map((item) => new Date(item.due_date).getTime()));
   const filteredData =
     activeTab === "All"
       ? data
       : data.filter((item) => {
-          if (activeTab === "Missed") return item.status === "missed";
-          if (activeTab === "Paid") return item.status === "paid";
-          if (activeTab === "Upcomming") return item.status === "upcomming";
+          if (activeTab === "Failed") return item.status === "failed";
+          if (activeTab === "Success") return item.status === "success";
+          if (activeTab === "Pending") return item.status === "pending";
           return false;
         });
 
@@ -33,45 +34,55 @@ const PlanPaymentList: React.FC<Props> = ({ data, isLoading, isError }) => {
     return (
       <div className="">
         {filteredData.map((item) => {
-          const isLatestUnpaid =
-            item.status !== "paid" &&
-            latestDueDate &&
-            new Date(item.due_date).getTime() === latestDueDate;
-
           return (
             <div
               key={item.id}
               className="cursor-pointer p-2 odd:bg-gray-100 rounded-xl flex items-center justify-between text-xs"
             >
-              <div className="flex items-center divide-gray-300 divide-x w-4/6">
+              <div className="flex flex-1 items-center divide-gray-300 divide-x ">
                 <div className="pr-2">
-                  <CalendarRange className="text-gray-500" />
+                  <ArrowLeftRight className="text-gray-500" />
                 </div>
-                <div className="px-2 text-left line-clamp-1">
-                  <span className="capitalize">{item.status} </span>
-                  <span className="font-bold">{formatPrice(item.amount)} </span>
-                  payment on {formatDate(item.due_date)}
+                <div className="px-2 text-left flex-1">
+                  <div className="font-starnest-mid">{item.title} </div>
+                  <div className="">{item.desc}</div>
                 </div>
               </div>
-              <div className="flex justify-end w-2/6">
-                {item.status != "paid" ? (
-                  <Button
-                    label="Make Payment"
-                    disabled={!isLatestUnpaid}
-                    className="text-xs"
-                    onClick={() => {}}
-                  />
-                ) : (
-                  <Button
-                    label="Paid"
-                    rightIcon={<CheckCircle2 size={15} />}
-                    className="text-xs bg-transparent text-green-500!"
-                  />
-                )}
+              <div className="space-y-2">
+                <StatusPill status={item.status} />
+                <div className="font-starnest-mid text-right">
+                  {formatPrice(item.amount)}{" "}
+                </div>
               </div>
             </div>
           );
         })}
+      </div>
+    );
+  };
+
+  interface statusProp {
+    status: "success" | "failed" | "pending";
+  }
+  const StatusPill: React.FC<statusProp> = ({ status }) => {
+    return (
+      <div className="">
+        <div
+          className={`flex items-center gap-1 px-2 rounded-lg ${
+            status === "success" &&
+            "text-green-500  bg-linear-to-l to-green-200"
+          } ${
+            status === "pending" &&
+            "text-orange-500 bg-linear-to-l to-orange-200"
+          } ${
+            status === "failed" && "text-red-500 bg-linear-to-l to-red-200"
+          } `}
+        >
+          {status}
+          {status === "success" && <CheckCircle2 size={15} />}
+          {status === "failed" && <AlertTriangle size={15} />}
+          {status === "pending" && <Info size={15} />}
+        </div>
       </div>
     );
   };
@@ -93,11 +104,8 @@ const PlanPaymentList: React.FC<Props> = ({ data, isLoading, isError }) => {
   };
 
   return (
-    <div className="bg-white p-2 md:p-6 rounded-3xl min-h-[80vh] flex flex-col">
+    <div className="bg-white p-2 md:p-6 rounded-3xl overflow-y-auto flex flex-col">
       <div className="flex-1">
-        <h2 className="text-left font-starnest-mid mb-2 underline underline-offset-4">
-          Plan Payment List
-        </h2>
         {/* Tabs & Sort */}
         <div className="flex justify-between items-center mb-4 p-4 md:p-0">
           <div className="flex gap-4 text-sm font-medium">
@@ -130,4 +138,4 @@ const PlanPaymentList: React.FC<Props> = ({ data, isLoading, isError }) => {
   );
 };
 
-export default PlanPaymentList;
+export default TransactionHistory;

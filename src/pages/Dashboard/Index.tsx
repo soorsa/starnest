@@ -10,6 +10,7 @@ import {
 import GoalProgressCard from "../../components/DashboardComponents/SimplePlanItem";
 import { Link } from "react-router-dom";
 import RecomendedPlanCarousel from "../../components/DashboardComponents/RecommendedPlanCarousel";
+import TransactionHistory from "../../components/DashboardComponents/TransactionHistory";
 
 const DashboardIndex: React.FC = () => {
   const goals = [
@@ -50,6 +51,32 @@ const DashboardIndex: React.FC = () => {
       percentage: 12,
     },
   ];
+  const transactions: Transaction[] = [
+    {
+      id: 1,
+      title: "Saving Plan",
+      desc: "one-time payment for Saving Plan",
+      created_at: "5/11/2025",
+      status: "success",
+      amount: 65000,
+    },
+    {
+      id: 2,
+      title: "Saving Plan",
+      desc: "one-time payment for Saving Plan",
+      created_at: "5/11/2025",
+      status: "failed",
+      amount: 65000,
+    },
+    {
+      id: 1,
+      title: "Saving Plan",
+      desc: "one-time payment for Saving Plan",
+      created_at: "5/11/2025",
+      status: "pending",
+      amount: 65000,
+    },
+  ];
   return (
     <div className="space-y-4 ">
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -83,7 +110,7 @@ const DashboardIndex: React.FC = () => {
         <RecomendedPlanCarousel />
       </div>
       <div className="grid sm:grid-cols-2 gap-4 ">
-        <div className="bg-white p-4 rounded-2xl space-y-8">
+        <div className="bg-white p-4 rounded-3xl space-y-8">
           <div className="flex items-center justify-between">
             <div className="text-black text-left text-xl font-starnest-mid">
               My Plans
@@ -110,7 +137,7 @@ const DashboardIndex: React.FC = () => {
             ))}
           </div>
         </div>
-        <div className="bg-white p-10 rounded-lg"></div>
+        <TransactionHistory data={transactions} />
       </div>
     </div>
   );

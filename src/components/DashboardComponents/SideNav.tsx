@@ -15,7 +15,11 @@ const NAVITEMS = [
   { label: "Overview", path: "/dashboard", icon: <Home /> },
   { label: "Plans", path: "/dashboard/plans", icon: <Star /> },
   { label: "My Plans", path: "/dashboard/my-plans", icon: <Stars /> },
-  { label: "Report", path: "/dashboard/report", icon: <ChartBar /> },
+  {
+    label: "Transactions",
+    path: "/dashboard/transactions",
+    icon: <ChartBar />,
+  },
 ];
 const SideNav = () => {
   return (

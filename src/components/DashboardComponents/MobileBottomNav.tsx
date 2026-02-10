@@ -22,15 +22,15 @@ const MobileBottomNav: React.FC = () => {
         to={`/dashboard/plans`}
         end={true}
         className={({ isActive }) =>
-          `flex items-center justify-center w-18 h-18 -mt-8 bg-white rounded-full shadow-2xl ${
-            isActive ? "text-yellow-600" : " text-gray-500"
+          `flex items-center justify-center w-18 h-18 -mt-8 rounded-full shadow-2xl ${
+            isActive ? "bg-yellow-600 text-white" : "bg-white text-gray-500"
           }`
         }
 
         // className="flex items-center justify-center w-18 h-18 -mt-8 bg-white rounded-full shadow-2xl bg-brand"
         // onClick={handleCreateOrder}
       >
-        <Star size={28} className="" />
+        <Star size={50} className="" />
       </NavLink>
       <MobileNavItem
         label="Report"

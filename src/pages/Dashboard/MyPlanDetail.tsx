@@ -1,5 +1,6 @@
 import React from "react";
 import PlanPaymentList from "../../components/DashboardComponents/PlanPaymentList";
+import PlanCardSummary from "../../components/DashboardComponents/PlanItemSummary";
 
 const MyPlanDetail: React.FC = () => {
   const data: PlanPayment[] = [
@@ -33,8 +34,13 @@ const MyPlanDetail: React.FC = () => {
     },
   ];
   return (
-    <div>
-      <PlanPaymentList data={data} />
+    <div className="grid md:grid-cols-2 gap-4">
+      <div className="">
+        <PlanCardSummary />
+      </div>
+      <div className="">
+        <PlanPaymentList data={data} />
+      </div>
     </div>
   );
 };
