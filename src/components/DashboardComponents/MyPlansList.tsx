@@ -5,12 +5,23 @@ import GoalProgressCard from "../../components/DashboardComponents/SimplePlanIte
 import { Link } from "react-router-dom";
 
 const MyPlansList: React.FC = () => {
-  const goals = [
+  const goals: GoalProgressCardProps[] = [
+    {
+      id: 5,
+      title: "Soosoil Savings Plan",
+      amount: 65000,
+      roi: 45,
+      status: "completed",
+      start_date: "5/11/2025",
+      end_date: "9/11/2026",
+      percentage: 100,
+    },
     {
       id: 1,
       title: "Soosoil Savings Plan",
       amount: 65000,
       roi: 45,
+      status: "ongoing",
       start_date: "5/11/2025",
       end_date: "9/11/2026",
       percentage: 60,
@@ -20,6 +31,7 @@ const MyPlansList: React.FC = () => {
       title: "Vaca Savings Plan",
       amount: 46500,
       roi: 45,
+      status: "ongoing",
       start_date: "5/11/2025",
       end_date: "9/11/2026",
       percentage: 50,
@@ -29,6 +41,7 @@ const MyPlansList: React.FC = () => {
       title: "IKD Savings Plan",
       amount: 23000,
       roi: 45,
+      status: "ongoing",
       start_date: "5/11/2025",
       end_date: "9/11/2026",
       percentage: 72,
@@ -38,6 +51,7 @@ const MyPlansList: React.FC = () => {
       title: "Car Down Payment",
       amount: 65000,
       roi: 45,
+      status: "missed",
       start_date: "5/11/2025",
       end_date: "9/11/2026",
       percentage: 12,
@@ -60,6 +74,8 @@ const MyPlansList: React.FC = () => {
       <div className="space-y-2">
         {goals.map((item, index) => (
           <GoalProgressCard
+            id={item.id}
+            status={item.status}
             key={index}
             title={item.title}
             roi={item.roi}
