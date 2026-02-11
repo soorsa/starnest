@@ -13,3 +13,14 @@ type Transaction = {
   status: "success" | "failed" | "pending";
   amount: number;
 };
+
+interface GoalProgressCardProps {
+  id: number;
+  title: string;
+  start_date: string;
+  end_date: string;
+  roi: number;
+  amount: string | number;
+  percentage: number;
+  status: "completed" | "ongoing" | "missed";
+}

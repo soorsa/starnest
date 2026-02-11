@@ -1,14 +1,5 @@
-import { AlertTriangle, TrendingUp } from "lucide-react";
+import { CheckCircle2, Timer, TrendingUp, TriangleAlert } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-
-interface GoalProgressCardProps {
-  title: string;
-  start_date: string;
-  end_date: string;
-  roi: number;
-  amount: string | number;
-  percentage: number;
-}
 
 export default function GoalProgressCard({
   title,
@@ -17,6 +8,7 @@ export default function GoalProgressCard({
   percentage,
   roi,
   amount,
+  status,
 }: GoalProgressCardProps) {
   const navigate = useNavigate();
   const handleClick = () => {
@@ -25,14 +17,26 @@ export default function GoalProgressCard({
   return (
     <div
       onClick={handleClick}
-      className="w-full rounded-lg bg-white p-4 border border-gray-100 hover:shadow-xs cursor-pointer"
+      className="w-full rounded-lg odd:bg-gray-100 p-4 cursor-pointer"
     >
       {/* Top Section */}
       <div className="flex items-start justify-between">
         <div className="flex items-center gap-3">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gray-100">
-            <AlertTriangle className="h-5 w-5 text-gray-700" />
-          </div>
+          {status === "completed" && (
+            <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-green-300">
+              <CheckCircle2 className="h-5 w-5 text-green-500" />
+            </div>
+          )}
+          {status === "missed" && (
+            <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-red-300 ">
+              <TriangleAlert className="h-5 w-5 text-red-500" />
+            </div>
+          )}
+          {status === "ongoing" && (
+            <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-orange-300 ">
+              <Timer className="h-5 w-5 text-orange-500" />
+            </div>
+          )}
 
           <div className="text-left">
             <p className="text-sm font-semibold text-gray-900">{title}</p>
