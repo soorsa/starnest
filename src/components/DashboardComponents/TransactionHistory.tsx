@@ -104,7 +104,7 @@ const TransactionHistory: React.FC<Props> = ({ data, isLoading, isError }) => {
   };
 
   return (
-    <div className="bg-white p-2 md:p-6 rounded-3xl overflow-y-auto flex flex-col">
+    <div className="bg-white p-2 md:p-6 rounded-3xl overflow-y-auto flex flex-col w-full">
       <div className="flex-1">
         {/* Tabs & Sort */}
         <div className="flex justify-between items-center mb-4 p-4 md:p-0">

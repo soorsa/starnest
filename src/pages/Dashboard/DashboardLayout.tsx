@@ -11,7 +11,7 @@ const DashboardLayout: React.FC = () => {
       <aside className="hidden w-[300px] bg-white p-4 md:flex flex-col">
         <SideNav />
       </aside>
-      <main className="flex-1 pb-20 overflow-y-auto bg-white md:pb-5 px-2 scrollbar-hide">
+      <main className="flex-1 pb-40 overflow-y-auto bg-white md:pb-5 px-2 scrollbar-hide">
         <Header />
         {/* Header */}
         <div className="bg-primary rounded-4xl">

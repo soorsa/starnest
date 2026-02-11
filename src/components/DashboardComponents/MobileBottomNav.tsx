@@ -33,9 +33,9 @@ const MobileBottomNav: React.FC = () => {
         <Star size={50} className="" />
       </NavLink>
       <MobileNavItem
-        label="Report"
+        label="Transactions"
         icon={<ChartBar size={24} />}
-        path="/dashboard/reports"
+        path="/dashboard/transactions"
         // badgeCount={4} // Example badge for notifications
       />
       <MobileNavItem
