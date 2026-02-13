@@ -18,6 +18,7 @@ import Plans from "../pages/Dashboard/Plans";
 import MyPlans from "../pages/Dashboard/MyPlans";
 import MyPlanDetail from "../pages/Dashboard/MyPlanDetail";
 import Transactions from "../pages/Dashboard/Transactions";
+import Profile from "../pages/Dashboard/Profile";
 
 const DashboardLayout = lazy(
   () => import("../pages/Dashboard/DashboardLayout")
@@ -45,6 +46,7 @@ const AppRoutes = () => {
                 <Route path="my-plans" element={<MyPlans />} />
                 <Route path="my-plans/:id" element={<MyPlanDetail />} />
                 <Route path="transactions" element={<Transactions />} />
+                <Route path="profile" element={<Profile />} />
               </Route>
             </Route>
 

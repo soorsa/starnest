@@ -7,6 +7,8 @@ import {
 } from "lucide-react";
 import React, { useState } from "react";
 import { formatPrice } from "../../utils/formatter";
+import { useModal } from "../../zustand/modal.state";
+import TransactionDetail from "./TransactionDetail";
 
 type Props = {
   data: Transaction[];
@@ -19,6 +21,7 @@ type Tab = (typeof tabs)[number];
 
 const TransactionHistory: React.FC<Props> = ({ data, isLoading, isError }) => {
   const [activeTab, setActiveTab] = useState<Tab>("All");
+  const modal = useModal();
   // Find the latest due date among items with status !== 1
   const filteredData =
     activeTab === "All"
@@ -37,6 +40,7 @@ const TransactionHistory: React.FC<Props> = ({ data, isLoading, isError }) => {
           return (
             <div
               key={item.id}
+              onClick={() => modal.openModal(<TransactionDetail item={item} />)}
               className="cursor-pointer p-2 odd:bg-gray-100 rounded-xl flex items-center justify-between text-xs"
             >
               <div className="flex flex-1 items-center divide-gray-300 divide-x ">
