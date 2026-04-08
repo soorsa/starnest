@@ -4,7 +4,7 @@ import { useUserState } from "../zustand/user.state";
 import { logout } from "./auth/useAuth";
 
 const api = axios.create({
-  baseURL: "https://api.starnest.com.ng", // Replace with your actual API URL
+  baseURL: "https://api.starnest.com.ng/v1", // Replace with your actual API URL
   // baseURL: "http://127.0.0.1:8000/api", // Replace with your actual API URL
   headers: {
     "Content-Type": "application/json",
