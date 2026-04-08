@@ -10,6 +10,9 @@ import {
   User,
   UserCircle,
 } from "lucide-react";
+import { useModal } from "../../zustand/modal.state";
+import { useUserState } from "../../zustand/user.state";
+import LogoutModal from "../AuthComponents/LogoutModal";
 import NavItem from "./NavItem";
 const NAVITEMS = [
   { label: "Overview", path: "/dashboard", icon: <Home /> },
@@ -22,6 +25,12 @@ const NAVITEMS = [
   },
 ];
 const SideNav = () => {
+  const { user } = useUserState();
+  const user_name =
+    user?.first_name && user.last_name
+      ? `${user.first_name} ${user.last_name}`
+      : user?.username;
+  const modal = useModal();
   return (
     <div className="flex flex-col justify-between h-screen px-4 overflow-y-scroll scrollbar-hide">
       <div className="w-full h-full pb-8">
@@ -38,7 +47,7 @@ const SideNav = () => {
 
           {/* Nested nav */}
           <NavItem
-            label="Mike Milligan"
+            label={user_name || ""}
             icon={<UserCircle className="w-5 h-5 " />}
             children={[
               {
@@ -58,7 +67,10 @@ const SideNav = () => {
               },
               {
                 label: "Logout",
-                path: "/dashboard/settings",
+                // path: "/dashboard/settings",
+                onclick() {
+                  modal.openModal(<LogoutModal />);
+                },
                 icon: <LogOut className="w-4 h-4" />,
               },
             ]}

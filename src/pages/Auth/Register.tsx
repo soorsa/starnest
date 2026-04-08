@@ -1,15 +1,16 @@
 import { Form, Formik } from "formik";
-import * as Yup from "yup";
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import Login from "./Login";
-import { useModal } from "../../zustand/modal.state";
+import * as Yup from "yup";
 import InputField from "../../components/FormComponents/InputField";
 import Button from "../../components/GeneralComponent/Button";
+import { useRegister } from "../../hooks/auth/useAuth";
+import { useModal } from "../../zustand/modal.state";
+import Login from "./Login";
 const Register = () => {
   const { openModal } = useModal();
   const [showPassword, setShowPassword] = useState(false);
-  //   const { mutate: register, isPending } = useRegister();
+  const { mutate: register, isPending } = useRegister();
   // Password visibility toggle logic
   const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
   const initialValues = {
@@ -18,42 +19,38 @@ const Register = () => {
     first_name: "",
     last_name: "",
     password: "",
-    confirm_password: "",
+    phone_number: "",
   };
   const validationSchema = Yup.object({
-    username: Yup.string().min(3).required("Required"),
+    // username: Yup.string().min(3).required("Required"),
     email: Yup.string().email("Invalid email").required("Required"),
+    phone_number: Yup.string().required("Required"),
     first_name: Yup.string().required("Required"),
     last_name: Yup.string().required("Required"),
     password: Yup.string().required("Required"),
-    confirm_password: Yup.string()
-      .oneOf([Yup.ref("password")], "Passwords must match")
-      .required("Required"),
+    // confirm_password: Yup.string()
+    //   .oneOf([Yup.ref("password")], "Passwords must match")
+    //   .required("Required"),
   });
-  const handleSubmit = (
-    values: typeof initialValues,
-    setSubmitting: (isSubmitting: boolean) => void
-  ) => {
-    setSubmitting(false);
+  const handleSubmit = (values: typeof initialValues) => {
     const payload = {
-      username: values.username,
+      username: values.email,
       email: values.email,
+      phone_number: values.phone_number,
       password: values.password,
       first_name: values.first_name,
       last_name: values.last_name,
     };
-    console.log(payload);
-    // register(payload);
+    register(payload);
   };
   return (
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
-      onSubmit={(values, { setSubmitting }) =>
-        handleSubmit(values, setSubmitting)
-      }
+      validateOnMount
+      onSubmit={handleSubmit}
     >
-      {({ isSubmitting, isValid }) => (
+      {({ isValid }) => (
         <Form className="space-y-3 flex flex-col px-4 mx-auto max-w-sm">
           <h2 className="font-medium text-3xl text-black text-center py-4">
             Get Started
@@ -63,6 +60,7 @@ const Register = () => {
             <InputField name="last_name" placeholder="Last Name" />
           </div>
           <InputField name="email" placeholder="Email Address" />
+          <InputField name="phone_number" placeholder="Phone Number" />
           <InputField
             name="password"
             type={showPassword ? "text" : "password"}
@@ -82,29 +80,10 @@ const Register = () => {
               )
             }
           />
-          <InputField
-            name="confirm_password"
-            type={showPassword ? "text" : "password"}
-            placeholder="Confirm Password"
-            className="input"
-            rightIcon={
-              showPassword ? (
-                <FaEye
-                  className="text-gray-500 w-5 h-5 cursor-pointer"
-                  onClick={togglePasswordVisibility}
-                />
-              ) : (
-                <FaEyeSlash
-                  className="text-gray-500 w-5 h-5 cursor-pointer"
-                  onClick={togglePasswordVisibility}
-                />
-              )
-            }
-          />
           <Button
             type="submit"
-            isLoading={isSubmitting}
-            disabled={isSubmitting || !isValid}
+            isLoading={isPending}
+            disabled={isPending || !isValid}
             label="Submit"
             loadingLabel="Sending..."
             className="!bg-black w-full py-2 rounded-full mt-10"

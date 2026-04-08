@@ -1,8 +1,15 @@
-import React from "react";
-import PlanList from "../../components/DashboardComponents/PlanList";
+import React, { useState } from "react";
 import FilterBar from "../../components/DashboardComponents/FilterBar";
+import Paginator from "../../components/DashboardComponents/Paginator";
+import PlanList from "../../components/DashboardComponents/PlanList";
+import { useGetPlans } from "../../hooks/querys/useSavingPlan";
 
 const Plans: React.FC = () => {
+  const [filterParams, setFilterParams] = useState<PlanFilterParams>({
+    page: 1,
+  });
+
+  const { data, isLoading, isError } = useGetPlans(filterParams);
   return (
     <div>
       <div className="py-10">
@@ -10,11 +17,20 @@ const Plans: React.FC = () => {
         <p className="text-sm">
           Find all plans or your most confortable savings plan here.
         </p>
-        <div className="md:w-[60%] mx-auto">
+        <div className="lg:w-[60%] mx-auto">
           <FilterBar />
         </div>
       </div>
-      <PlanList />
+      <PlanList
+        isLoading={isLoading}
+        isError={isError}
+        plans={data?.results || []}
+      />
+      <Paginator
+        currentPage={filterParams.page || 1}
+        totalPages={Math.ceil((data?.count || 0) / 20)}
+        onPageChange={(page) => setFilterParams((prev) => ({ ...prev, page }))}
+      />
     </div>
   );
 };

@@ -1,34 +1,49 @@
+import { Loader } from "lucide-react";
 import { Suspense, lazy } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import GeneralRoutes from "./global.routes";
-import ProtectedRoutes from "./dashboard.routes";
-import AuthenticationRoute from "./auth.routes";
-import AuthLayout from "../pages/Auth/AuthLayout";
-import Index from "../pages/Landing/Index";
-import Toast from "../components/UtilityComponents/Toast";
 import Modal from "../components/UtilityComponents/Modal";
-import StartUp from "../components/GeneralComponent/StartUp";
-import * as Layout from "../pages/Landing/Layout";
-import AboutUs from "../pages/Landing/About-Us";
-import ContactUs from "../pages/Landing/Contact-Us";
+import Toast from "../components/UtilityComponents/Toast";
+import { useGetUser } from "../hooks/auth/useAuth";
+import ActivePlanDetail from "../pages/Admin/ActivePlanDetail";
+import ActivePlans from "../pages/Admin/ActivePlans";
+import AdminIndex from "../pages/Admin/Index";
+import PlanDetails from "../pages/Admin/PlanDetails";
+import * as AdminPlan from "../pages/Admin/Plans";
+import * as AdminTransactions from "../pages/Admin/Transactions";
+import UserDetail from "../pages/Admin/UserDetail";
+import Users from "../pages/Admin/Users";
+import AuthLayout from "../pages/Auth/AuthLayout";
 import Login from "../pages/Auth/Login";
 import Register from "../pages/Auth/Register";
 import DashboardIndex from "../pages/Dashboard/Index";
-import Plans from "../pages/Dashboard/Plans";
-import MyPlans from "../pages/Dashboard/MyPlans";
+import More from "../pages/Dashboard/More";
 import MyPlanDetail from "../pages/Dashboard/MyPlanDetail";
-import Transactions from "../pages/Dashboard/Transactions";
+import MyPlans from "../pages/Dashboard/MyPlans";
+import PlanDetailPage from "../pages/Dashboard/PlanDetailPage";
+import Plans from "../pages/Dashboard/Plans";
 import Profile from "../pages/Dashboard/Profile";
+import Transactions from "../pages/Dashboard/Transactions";
+import AboutUs from "../pages/Landing/About-Us";
+import ContactUs from "../pages/Landing/Contact-Us";
+import Index from "../pages/Landing/Index";
+import * as Layout from "../pages/Landing/Layout";
+import AdminRoutes from "./admin.routes";
+import AuthenticationRoute from "./auth.routes";
+import ProtectedRoutes from "./dashboard.routes";
+import GeneralRoutes from "./global.routes";
 
 const DashboardLayout = lazy(
   () => import("../pages/Dashboard/DashboardLayout")
 );
+const AdminLayout = lazy(() => import("../pages/Admin/Layout"));
 
 const AppRoutes = () => {
+  useGetUser();
   return (
     <>
       <BrowserRouter>
-        <Suspense fallback={<StartUp className="w-full md:w-[40%]" />}>
+        {/* <Suspense fallback={<StartUp className="w-full md:w-[40%]" />}> */}
+        <Suspense fallback={<Loader className="animate-spin text-gray-500" />}>
           <Routes>
             <Route path="/" element={<GeneralRoutes />}>
               <Route element={<Layout.default />}>
@@ -43,10 +58,27 @@ const AppRoutes = () => {
               <Route element={<DashboardLayout />}>
                 <Route index element={<DashboardIndex />} />
                 <Route path="plans" element={<Plans />} />
+                <Route path="plans/:id" element={<PlanDetailPage />} />
                 <Route path="my-plans" element={<MyPlans />} />
                 <Route path="my-plans/:id" element={<MyPlanDetail />} />
                 <Route path="transactions" element={<Transactions />} />
                 <Route path="profile" element={<Profile />} />
+                <Route path="more" element={<More />} />
+              </Route>
+            </Route>
+            <Route path="/admin/*" element={<AdminRoutes />}>
+              <Route element={<AdminLayout />}>
+                <Route index element={<AdminIndex />} />
+                <Route path="plans" element={<AdminPlan.default />} />
+                <Route path="plans/:id" element={<PlanDetails />} />
+                <Route path="active-plans" element={<ActivePlans />} />
+                <Route path="active-plans/:id" element={<ActivePlanDetail />} />
+                <Route path="users" element={<Users />} />
+                <Route path="users/:id" element={<UserDetail />} />
+                <Route
+                  path="transactions"
+                  element={<AdminTransactions.default />}
+                />
               </Route>
             </Route>
 
@@ -59,9 +91,9 @@ const AppRoutes = () => {
             </Route>
           </Routes>
         </Suspense>
+        <Toast />
+        <Modal />
       </BrowserRouter>
-      <Toast />
-      <Modal />
     </>
   );
 };

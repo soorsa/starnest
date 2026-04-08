@@ -1,8 +1,8 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import SideNav from "../../components/DashboardComponents/SideNav";
-import MobileBottomNav from "../../components/DashboardComponents/MobileBottomNav";
 import Header from "../../components/DashboardComponents/Header";
+import MobileBottomNav from "../../components/DashboardComponents/MobileBottomNav";
+import SideNav from "../../components/DashboardComponents/SideNav";
 
 const DashboardLayout: React.FC = () => {
   return (
@@ -11,10 +11,10 @@ const DashboardLayout: React.FC = () => {
       <aside className="hidden w-[300px] bg-white p-4 md:flex flex-col">
         <SideNav />
       </aside>
-      <main className="flex-1 pb-40 overflow-y-auto bg-white md:pb-5 px-2 scrollbar-hide">
+      <main className="flex-1 overflow-y-auto bg-white md:pb-5 px-2 scrollbar-hide">
         <Header />
         {/* Header */}
-        <div className="bg-primary rounded-4xl">
+        <div className="bg-primary rounded-4xl min-h-[85vh] max-h-[85vh] overflow-y-auto scrollbar-hide pb-15 md:pb-0">
           <div className="py-5 px-2 md:px-5">
             <Outlet />
           </div>

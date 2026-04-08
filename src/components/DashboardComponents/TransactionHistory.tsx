@@ -3,11 +3,12 @@ import {
   ArrowLeftRight,
   CheckCircle2,
   Info,
-  LoaderPinwheel,
 } from "lucide-react";
 import React, { useState } from "react";
 import { formatPrice } from "../../utils/formatter";
 import { useModal } from "../../zustand/modal.state";
+import TransactionSkeleton from "../SkeletonsComponents/TransactionSkeleton";
+import ErrorPlaceholder from "./ErrorPlaceholder";
 import TransactionDetail from "./TransactionDetail";
 
 type Props = {
@@ -48,8 +49,8 @@ const TransactionHistory: React.FC<Props> = ({ data, isLoading, isError }) => {
                   <ArrowLeftRight className="text-gray-500" />
                 </div>
                 <div className="px-2 text-left flex-1">
-                  <div className="font-starnest-mid">{item.title} </div>
-                  <div className="">{item.desc}</div>
+                  <div className="font-starnest-mid">Deposit </div>
+                  <div className="">for {item.user_savings.plan.name}</div>
                 </div>
               </div>
               <div className="space-y-2">
@@ -93,15 +94,27 @@ const TransactionHistory: React.FC<Props> = ({ data, isLoading, isError }) => {
 
   const renderContent = () => {
     if (isLoading) {
-      return <LoaderPinwheel className="animate-spin" />;
+      return <TransactionSkeleton />;
     }
 
     if (isError) {
-      return <div className="text-center py-4">Error</div>;
+      return (
+        <ErrorPlaceholder
+          icon={<ArrowLeftRight />}
+          title="Failed"
+          message="Unable to retrieve your transaction history at the moment."
+        />
+      );
     }
 
     if (filteredData.length === 0) {
-      return <div className="text-center py-4">not found</div>;
+      return (
+        <ErrorPlaceholder
+          icon={<ArrowLeftRight />}
+          title="Not found"
+          message="You have not made any transactions yet."
+        />
+      );
     }
 
     return renderList();

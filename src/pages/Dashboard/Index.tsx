@@ -1,130 +1,65 @@
+import { CircleDollarSign, Layers, WalletMinimal } from "lucide-react";
 import React from "react";
 import InfoCard from "../../components/DashboardComponents/InfoCard";
-import { formatDate, formatPrice } from "../../utils/formatter";
-import {
-  ArrowRight,
-  CircleDollarSign,
-  Layers,
-  WalletMinimal,
-} from "lucide-react";
-import GoalProgressCard from "../../components/DashboardComponents/SimplePlanItem";
-import { Link } from "react-router-dom";
+import MyPlansList from "../../components/DashboardComponents/MyPlansList";
 import RecomendedPlanCarousel from "../../components/DashboardComponents/RecommendedPlanCarousel";
 import TransactionHistory from "../../components/DashboardComponents/TransactionHistory";
+import { useGetUserPlans } from "../../hooks/querys/useSavingPlan";
+import { useGetTransactions } from "../../hooks/querys/useTransactions";
+import { useGetUserByID } from "../../hooks/querys/useUsers";
+import { formatPrice } from "../../utils/formatter";
+import { useUserState } from "../../zustand/user.state";
 
 const DashboardIndex: React.FC = () => {
-  const goals: GoalProgressCardProps[] = [
-    {
-      id: 5,
-      title: "Soosoil Savings Plan",
-      amount: 65000,
-      roi: 45,
-      status: "completed",
-      start_date: "5/11/2025",
-      end_date: "9/11/2026",
-      percentage: 100,
-    },
-    {
-      id: 1,
-      title: "Soosoil Savings Plan",
-      amount: 65000,
-      roi: 45,
-      status: "ongoing",
-      start_date: "5/11/2025",
-      end_date: "9/11/2026",
-      percentage: 60,
-    },
-    {
-      id: 2,
-      title: "Vaca Savings Plan",
-      amount: 46500,
-      roi: 45,
-      status: "ongoing",
-      start_date: "5/11/2025",
-      end_date: "9/11/2026",
-      percentage: 50,
-    },
-    {
-      id: 3,
-      title: "IKD Savings Plan",
-      amount: 23000,
-      roi: 45,
-      status: "ongoing",
-      start_date: "5/11/2025",
-      end_date: "9/11/2026",
-      percentage: 72,
-    },
-    {
-      id: 4,
-      title: "Car Down Payment",
-      amount: 65000,
-      roi: 45,
-      status: "missed",
-      start_date: "5/11/2025",
-      end_date: "9/11/2026",
-      percentage: 12,
-    },
-  ];
-  const transactions: Transaction[] = [
-    {
-      id: 1,
-      title: "Saving Plan",
-      desc: "one-time payment for Saving Plan",
-      created_at: "5/11/2025",
-      status: "success",
-      amount: 65000,
-    },
-    {
-      id: 2,
-      title: "Saving Plan",
-      desc: "one-time payment for Saving Plan",
-      created_at: "5/11/2025",
-      status: "failed",
-      amount: 65000,
-    },
-    {
-      id: 1,
-      title: "Saving Plan",
-      desc: "one-time payment for Saving Plan",
-      created_at: "5/11/2025",
-      status: "pending",
-      amount: 65000,
-    },
-  ];
+  const { user } = useUserState();
+  const { data, isLoading, isError } = useGetUserPlans({ page: 1 });
+  const {
+    data: userdata,
+    isLoading: userdataLoading,
+    isError: userdataError,
+  } = useGetUserByID(user?.id);
+  const {
+    data: dData,
+    isError: TisError,
+    isLoading: TisLoading,
+  } = useGetTransactions({ page: 1 });
+  const transactions = dData?.results ?? [];
+
+  const userPlans = data?.results || [];
   return (
     <div className="space-y-4 ">
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
         <div className="sm:col-span-2 lg:col-span-1">
           <InfoCard
-            title="Balance"
-            value={formatPrice(65200)}
+            title="Deposited Savings"
+            value={formatPrice(userdata?.total_savings || 0)}
             icon={<WalletMinimal />}
-            isError={false}
-            isloading={false}
+            isError={userdataError}
+            isloading={userdataLoading}
           />
         </div>
         <InfoCard
-          title="Profits"
-          value={formatPrice(65200)}
-          secondaryValue={`30%`}
+          title="Expected Reward"
+          value={formatPrice(userdata?.total_recieveable || 0)}
+          // secondaryValue={`30%`}
           isPositive
           icon={<CircleDollarSign />}
-          isError={false}
-          isloading={false}
+          isError={userdataError}
+          isloading={userdataLoading}
         />
         <InfoCard
           title="Active Plans"
-          value={formatPrice(5)}
+          value={userdata?.total_plans || 0}
           icon={<Layers />}
-          isError={false}
-          isloading={false}
+          isError={userdataError}
+          isloading={userdataLoading}
         />
       </div>
       <div className="w-full">
         <RecomendedPlanCarousel />
       </div>
-      <div className="grid sm:grid-cols-2 gap-4 ">
-        <div className="bg-white p-4 rounded-3xl space-y-8">
+      <div className="grid lg:grid-cols-2 gap-4 ">
+        {/* <div className="bg-white p-4 rounded-3xl space-y-8">
           <div className="flex items-center justify-between">
             <div className="text-black text-left text-xl font-starnest-mid">
               My Plans
@@ -137,23 +72,30 @@ const DashboardIndex: React.FC = () => {
               <ArrowRight className="w-4 h-4 text-gray-600" />
             </Link>
           </div>
-          <div className="space-y-0">
-            {goals.map((item, index) => (
-              <GoalProgressCard
-                id={item.id}
-                key={index}
-                title={item.title}
-                roi={item.roi}
-                status={item.status}
-                amount={formatPrice(item.amount)}
-                start_date={formatDate(item.start_date)}
-                end_date={formatDate(item.end_date)}
-                percentage={item.percentage}
-              />
-            ))}
-          </div>
-        </div>
-        <TransactionHistory data={transactions} />
+          {userPlans.length < 1 ? (
+            <ErrorPlaceholder
+              size="small"
+              title="Not Found"
+              message="Sorry... you have not joined any saving plans yet."
+            />
+          ) : (
+            <div className="space-y-0">
+              {userPlans.map((item, index) => (
+                <SavingProgressCard userPlan={item} key={index} />
+              ))}
+            </div>
+          )}
+        </div> */}
+        <MyPlansList
+          plans={userPlans}
+          isError={isError}
+          isLoading={isLoading}
+        />
+        <TransactionHistory
+          data={transactions}
+          isError={TisError}
+          isLoading={TisLoading}
+        />
       </div>
     </div>
   );

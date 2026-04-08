@@ -1,51 +1,44 @@
 import { Form, Formik } from "formik";
-import * as Yup from "yup";
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-// import { useLogin } from "../../hooks/Auth";
-import Register from "./Register";
+import * as Yup from "yup";
 import InputField from "../../components/FormComponents/InputField";
 import Button from "../../components/GeneralComponent/Button";
+import { useLogin } from "../../hooks/auth/useAuth";
 import { useModal } from "../../zustand/modal.state";
+import Register from "./Register";
 
 const Login = () => {
   const { openModal } = useModal();
   const [showPassword, setShowPassword] = useState(false);
-  // const { mutate: login, isPending } = useLogin();
+  const { mutate: login, isPending } = useLogin();
   // Password visibility toggle logic
   const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
   const initialValues = {
-    username: "",
+    email: "",
     password: "",
   };
   const validationSchema = Yup.object({
-    username: Yup.string().required("Required"),
+    email: Yup.string().required("Required"),
     password: Yup.string().required("Required"),
   });
-  const handleSubmit = (
-    values: typeof initialValues,
-    setSubmitting: (isSubmitting: boolean) => void
-  ) => {
-    setSubmitting(false);
-    console.log(values);
-    // login(values);
-    // Auth.login(values, { setSubmitting });
+  const handleSubmit = (values: typeof initialValues) => {
+    login(values);
   };
   return (
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
-      onSubmit={(values, { setSubmitting }) =>
-        handleSubmit(values, setSubmitting)
-      }
+      validateOnMount
+      onSubmit={handleSubmit}
     >
-      {({ isSubmitting, isValid }) => (
+      {({ isValid }) => (
         <Form className="space-y-3 flex flex-col px-4 max-w-sm mx-auto h-full">
           <h2 className="font-medium text-3xl text-black text-center py-4">
             Welcome Back
           </h2>
           {/* Render based on state */}
-          <InputField name="username" placeholder="Username" />
+          <InputField name="email" placeholder="Email address" />
           <InputField
             name="password"
             type={showPassword ? "text" : "password"}
@@ -81,8 +74,8 @@ const Login = () => {
           </div>
           <Button
             type="submit"
-            isLoading={isSubmitting}
-            disabled={isSubmitting || !isValid}
+            isLoading={isPending}
+            disabled={isPending || !isValid}
             label="Log In"
             loadingLabel="Logging In"
             className="w-full py-2 rounded-full mt-10"
@@ -98,14 +91,6 @@ const Login = () => {
               />
             </>
           </p>
-          {/* Toast notification */}
-          {/* {showToast && (
-            <Toast
-              message={toastMsg}
-              type={toastType}
-              onClose={() => setShowToast(false)}
-            />
-          )} */}
         </Form>
       )}
     </Formik>

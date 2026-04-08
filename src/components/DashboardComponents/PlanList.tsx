@@ -1,12 +1,42 @@
+import { AlertCircle, Loader, Search } from "lucide-react";
 import React from "react";
+import ErrorPlaceholder from "./ErrorPlaceholder";
 import PlanCard from "./PlanCard";
-
-const PlanList: React.FC = () => {
-  const list = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+interface Prop {
+  plans: Plan[];
+  isLoading: boolean;
+  isError: boolean;
+}
+const PlanList: React.FC<Prop> = ({ plans, isLoading, isError }) => {
+  if (isLoading) {
+    return (
+      <div className="">
+        <Loader className="animate-spin" />
+      </div>
+    );
+  }
+  if (isError) {
+    return (
+      <ErrorPlaceholder
+        icon={<AlertCircle />}
+        title="Error"
+        message="Sorry... unable to retrieve plan at the moment."
+      />
+    );
+  }
+  if (plans.length < 1) {
+    return (
+      <ErrorPlaceholder
+        icon={<Search />}
+        title="Not found"
+        message="Sorry... no plans found."
+      />
+    );
+  }
   return (
-    <div className="grid md:grid-cols-3 gap-4">
-      {list.map((i) => (
-        <PlanCard key={i} />
+    <div className="grid lg:grid-cols-3 gap-4">
+      {plans.map((plan, i) => (
+        <PlanCard plan={plan} key={i} />
       ))}
     </div>
   );

@@ -1,6 +1,6 @@
-import { Field, ErrorMessage, useField } from "formik";
-import { FaExclamationCircle } from "react-icons/fa";
+import { ErrorMessage, Field, useField } from "formik";
 import React from "react";
+import { FaExclamationCircle } from "react-icons/fa";
 
 interface InputFieldProps {
   type?:
@@ -38,7 +38,7 @@ const InputField: React.FC<InputFieldProps> = ({
 
   return (
     <div className="w-full text-left">
-      <div className="text-sm">{label}</div>
+      <div className="text-xs text-gray-600">{label}</div>
       <div
         className={`w-full relative flex ${
           isTextarea ? "flex-col" : "flex-row"
@@ -46,7 +46,7 @@ const InputField: React.FC<InputFieldProps> = ({
           hasError
             ? "border-red-500"
             : theme === "dark"
-            ? "border-gray-700"
+            ? "border-gray-400"
             : "border-gray-200 focus:border-blue-400 active:border-blue-400"
         } ${className}`}
       >

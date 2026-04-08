@@ -1,12 +1,17 @@
 import React, { useState, type JSX } from "react";
-import { NavLink } from "react-router-dom";
 import { FaChevronDown } from "react-icons/fa";
+import { NavLink } from "react-router-dom";
 
 interface NavItemProps {
   label: string;
   icon: JSX.Element;
   path?: string;
-  children?: { label: string; path: string; icon?: JSX.Element }[];
+  children?: {
+    label: string;
+    path?: string;
+    icon?: JSX.Element;
+    onclick?: () => void;
+  }[];
 }
 
 const NavItem: React.FC<NavItemProps> = ({ label, icon, path, children }) => {
@@ -51,21 +56,32 @@ const NavItem: React.FC<NavItemProps> = ({ label, icon, path, children }) => {
           {children.map((child, index) => (
             <div className="flex items-center">
               <div className="h-[0.5px] w-[10px] text-black bg-gray-500"></div>
-              <NavLink
-                key={index}
-                to={child.path}
-                end={true}
-                className={({ isActive }) =>
-                  `py-[7px] flex gap-1 items-center flex-1 px-2 rounded-md transition text-left text-[12px] ${
-                    isActive
-                      ? "bg-white text-black"
-                      : "text-black hover:text-black hover:bg-white"
-                  }`
-                }
-              >
-                {child.icon}
-                {child.label}
-              </NavLink>
+              {child.path ? (
+                <NavLink
+                  key={index}
+                  to={child.path}
+                  end={true}
+                  className={({ isActive }) =>
+                    `py-[7px] flex gap-1 items-center flex-1 px-2 rounded-md transition text-left text-[12px] ${
+                      isActive
+                        ? "bg-white text-black"
+                        : "text-black hover:text-black hover:bg-white"
+                    }`
+                  }
+                >
+                  {child.icon}
+                  {child.label}
+                </NavLink>
+              ) : (
+                <div
+                  key={index}
+                  onClick={child.onclick}
+                  className={`cursor-pointer py-[7px] flex gap-1 items-center flex-1 px-2 rounded-md transition text-left text-[12px] text-black hover:text-black hover:bg-white`}
+                >
+                  {child.icon}
+                  {child.label}
+                </div>
+              )}
             </div>
           ))}
         </div>

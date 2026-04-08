@@ -1,10 +1,11 @@
-import React from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import React from "react";
+import { useGetPlans } from "../../hooks/querys/useSavingPlan";
 import { ResponsivePlanCard } from "./PlanCard";
 
 const RecomendedPlanCarousel: React.FC = () => {
-  const mapper = [1, 2, 3, 4, 5];
+  const { data } = useGetPlans({ page: 1 });
   const [emblaRef, embla] = useEmblaCarousel({
     align: "start",
     loop: false,
@@ -42,12 +43,12 @@ const RecomendedPlanCarousel: React.FC = () => {
         <div className="flex">
           {" "}
           {/* Negative margin to counteract slide padding */}
-          {mapper.map((map) => (
+          {data?.results.map((plan, i) => (
             <div
-              className="first:pl-0 pl-4 py-2 flex-[0_0_90%] md:flex-[0_0_60%] min-w-0"
-              key={map}
+              className="first:pl-0 pl-4 py-2 flex-[0_0_90%] lg:flex-[0_0_60%] min-w-0"
+              key={i}
             >
-              <ResponsivePlanCard />{" "}
+              <ResponsivePlanCard plan={plan} />{" "}
             </div>
           ))}
         </div>

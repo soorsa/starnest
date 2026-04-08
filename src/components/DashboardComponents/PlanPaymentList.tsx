@@ -1,34 +1,45 @@
 import { CalendarRange, CheckCircle2, LoaderPinwheel } from "lucide-react";
 import React, { useState } from "react";
-import { formatDate, formatPrice } from "../../utils/formatter";
+import { formatDate } from "../../utils/formatter";
+import { useModal } from "../../zustand/modal.state";
 import Button from "../GeneralComponent/Button";
+import MakeDeposit from "./MakeDeposit";
 
 type Props = {
-  data: PlanPayment[];
+  user_plan: UserSavingPlan;
   isLoading?: boolean;
   isError?: boolean;
 };
 
-const tabs = ["All", "Paid", "Upcomming", "Missed"] as const;
+const tabs = ["All", "Paid", "Upcoming", "Missed"] as const;
 type Tab = (typeof tabs)[number];
 
-const PlanPaymentList: React.FC<Props> = ({ data, isLoading, isError }) => {
+const PlanPaymentList: React.FC<Props> = ({
+  user_plan,
+  isLoading,
+  isError,
+}) => {
+  const modal = useModal();
   const [activeTab, setActiveTab] = useState<Tab>("All");
+  const data = user_plan.payment_schedule;
   // Find the latest due date among items with status !== 1
   const unpaidItems = data.filter((item) => item.status !== "paid");
   const latestDueDate =
     unpaidItems.length > 0 &&
-    Math.min(...unpaidItems.map((item) => new Date(item.due_date).getTime()));
+    Math.min(...unpaidItems.map((item) => new Date(item.date).getTime()));
   const filteredData =
     activeTab === "All"
       ? data
       : data.filter((item) => {
           if (activeTab === "Missed") return item.status === "missed";
           if (activeTab === "Paid") return item.status === "paid";
-          if (activeTab === "Upcomming") return item.status === "upcomming";
+          if (activeTab === "Upcoming") return item.status === "upcoming";
           return false;
         });
 
+  const handleClick = () => {
+    modal.openModal(<MakeDeposit user_plan={user_plan} />);
+  };
   const renderList = () => {
     return (
       <div className="">
@@ -36,11 +47,11 @@ const PlanPaymentList: React.FC<Props> = ({ data, isLoading, isError }) => {
           const isLatestUnpaid =
             item.status !== "paid" &&
             latestDueDate &&
-            new Date(item.due_date).getTime() === latestDueDate;
+            new Date(item.date).getTime() === latestDueDate;
 
           return (
             <div
-              key={item.id}
+              key={item.cycle}
               className="cursor-pointer p-2 odd:bg-gray-100 rounded-xl flex items-center justify-between text-xs"
             >
               <div className="flex items-center divide-gray-300 divide-x w-4/6">
@@ -48,18 +59,18 @@ const PlanPaymentList: React.FC<Props> = ({ data, isLoading, isError }) => {
                   <CalendarRange className="text-gray-500" />
                 </div>
                 <div className="px-2 text-left line-clamp-1">
-                  <span className="capitalize">{item.status} </span>
-                  <span className="font-bold">{formatPrice(item.amount)} </span>
-                  payment on {formatDate(item.due_date)}
+                  <div className="font-bold">
+                    payment for {formatDate(item.date)}
+                  </div>
                 </div>
               </div>
               <div className="flex justify-end w-2/6">
                 {item.status != "paid" ? (
                   <Button
-                    label="Make Payment"
+                    label="Make Deposit"
                     disabled={!isLatestUnpaid}
                     className="text-xs"
-                    onClick={() => {}}
+                    onClick={handleClick}
                   />
                 ) : (
                   <Button
@@ -93,7 +104,7 @@ const PlanPaymentList: React.FC<Props> = ({ data, isLoading, isError }) => {
   };
 
   return (
-    <div className="bg-white p-2 md:p-6 rounded-3xl min-h-[80vh] flex flex-col">
+    <div className="bg-white p-2 md:p-6 rounded-3xl min-h-[80vh] md:max-h-[80vh] flex flex-col overflow-y-auto scrollbar-hide">
       <div className="flex-1">
         <h2 className="text-left font-starnest-mid mb-2 underline underline-offset-4">
           Plan Payment List

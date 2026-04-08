@@ -1,0 +1,162 @@
+import {
+  AlertTriangle,
+  ArrowLeftRight,
+  CheckCircle2,
+  Info,
+  Loader,
+} from "lucide-react";
+import React, { useState } from "react";
+import { formatPrice } from "../../utils/formatter";
+import { useModal } from "../../zustand/modal.state";
+import ErrorPlaceholder from "../DashboardComponents/ErrorPlaceholder";
+import TransactionDetail from "../DashboardComponents/TransactionDetail";
+
+type Props = {
+  data: Transaction[];
+  isLoading?: boolean;
+  isError?: boolean;
+};
+
+const tabs = ["All", "Success", "Pending", "Failed"] as const;
+type Tab = (typeof tabs)[number];
+
+const TransactionList: React.FC<Props> = ({ data, isLoading, isError }) => {
+  const [activeTab, setActiveTab] = useState<Tab>("All");
+  const modal = useModal();
+  // Find the latest due date among items with status !== 1
+  const filteredData =
+    activeTab === "All"
+      ? data
+      : data.filter((item) => {
+          if (activeTab === "Failed") return item.status === "failed";
+          if (activeTab === "Success") return item.status === "success";
+          if (activeTab === "Pending") return item.status === "pending";
+          return false;
+        });
+
+  const renderList = () => {
+    return (
+      <div className="">
+        {filteredData.map((item) => {
+          return (
+            <div
+              key={item.id}
+              onClick={() => modal.openModal(<TransactionDetail item={item} />)}
+              className="cursor-pointer p-2 odd:bg-gray-900 rounded-xl flex items-center justify-between text-xs"
+            >
+              <div className="flex flex-1 items-center divide-gray-300 divide-x ">
+                <div className="pr-2">
+                  <ArrowLeftRight className="text-gray-500" />
+                </div>
+                <div className="px-2 text-left flex-1">
+                  <div className="font-starnest-mid">Deposit </div>
+                  <div className="">for {item.user_savings.plan.name}</div>
+                </div>
+              </div>
+              <div className="space-y-2">
+                <StatusPill status={item.status} />
+                <div className="font-starnest-mid text-right">
+                  {formatPrice(item.amount)}{" "}
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    );
+  };
+
+  interface statusProp {
+    status: "success" | "failed" | "pending";
+  }
+  const StatusPill: React.FC<statusProp> = ({ status }) => {
+    return (
+      <div className="">
+        <div
+          className={`flex items-center gap-1 px-2 rounded-lg ${
+            status === "success" &&
+            "text-green-500  bg-linear-to-l to-green-200"
+          } ${
+            status === "pending" &&
+            "text-orange-500 bg-linear-to-l to-orange-200"
+          } ${
+            status === "failed" && "text-red-500 bg-linear-to-l to-red-200"
+          } `}
+        >
+          {status}
+          {status === "success" && <CheckCircle2 size={15} />}
+          {status === "failed" && <AlertTriangle size={15} />}
+          {status === "pending" && <Info size={15} />}
+        </div>
+      </div>
+    );
+  };
+
+  const renderContent = () => {
+    if (isLoading) {
+      return (
+        <div className="flex flex-1 py-20 text-gray-500 items-center justify-center">
+          <Loader className="animate-spin" />
+        </div>
+      );
+    }
+
+    if (isError) {
+      return (
+        <ErrorPlaceholder
+          icon={<ArrowLeftRight />}
+          title="Failed"
+          message="Unable to retrieve your transaction history at the moment."
+        />
+      );
+    }
+
+    if (filteredData.length === 0) {
+      return (
+        <ErrorPlaceholder
+          icon={<ArrowLeftRight />}
+          title="Not found"
+          message="You have not made any transactions yet."
+        />
+      );
+    }
+
+    return renderList();
+  };
+
+  return (
+    <div className="bg-gray-700 p-2 md:p-6 rounded-3xl overflow-y-auto flex flex-col w-full">
+      <div className="flex-1">
+        {/* Tabs & Sort */}
+        <div className="flex justify-between items-center mb-4 p-4 md:p-0">
+          <div className="flex gap-4 text-sm font-medium">
+            {tabs.map((tab) => (
+              <button
+                key={tab}
+                className={`${
+                  activeTab === tab ? "text-white" : "text-gray-400"
+                } transition`}
+                onClick={() => setActiveTab(tab)}
+              >
+                {tab}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* List */}
+        {renderContent()}
+      </div>
+      {/* Pagination */}
+
+      {/* Pagination Dots (Static for now) */}
+      <div className="flex justify-center mt-4 gap-2">
+        <div className="w-2 h-2 bg-gray-300 rounded-full"></div>
+        <div className="w-2 h-2 bg-gray-300 rounded-full"></div>
+        <div className="w-2 h-2 bg-gray-600 rounded-full"></div>
+      </div>
+    </div>
+  );
+};
+
+export default TransactionList;

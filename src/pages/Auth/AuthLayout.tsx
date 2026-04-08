@@ -1,7 +1,7 @@
-import React from "react";
-import Switch from "./Switch";
-import { Link, Outlet } from "react-router-dom";
 import { Home } from "lucide-react";
+import React from "react";
+import { Link, Outlet } from "react-router-dom";
+import Switch from "./Switch";
 
 const AuthLayout: React.FC = () => {
   return (
@@ -17,8 +17,8 @@ const AuthLayout: React.FC = () => {
         </div>
       </Link>
       {/* Main Content */}
-      <main className="flex-1 overflow-y-auto scrollbar-hide grid md:grid-cols-2 p-5 md:p-20">
-        <div className="">
+      <main className="flex-1 overflow-y-hidden scrollbar-hide grid md:grid-cols-2 p-5 md:p-20">
+        <div className="hidden md:block">
           <img
             // src="/happy-family.png"
             src="/Sign up-pana.svg"
@@ -26,8 +26,8 @@ const AuthLayout: React.FC = () => {
             className="w-full h-full object-cover"
           />
         </div>
-        <div className="space-y-4">
-          <div className="bg-white shadow-xs h-[90%] py-5 md:py-10 rounded-2xl">
+        <div className="space-y-4 mt-25 md:mt-0">
+          <div className="bg-white shadow-xs md:h-[90%] py-5 md:py-10 rounded-2xl">
             <Switch />
 
             <Outlet />

@@ -1,13 +1,15 @@
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import React, { type ReactNode } from "react";
 import { FiBell, FiSettings } from "react-icons/fi";
 import { Link, useNavigate } from "react-router-dom";
+import { useUserState } from "../../zustand/user.state";
 interface Props {
   children?: ReactNode;
   title?: string;
 }
 const Header: React.FC<Props> = ({ children, title }) => {
   const navigate = useNavigate();
+  const { user } = useUserState();
   const goBack = () => {
     navigate(-1);
   };
@@ -22,7 +24,7 @@ const Header: React.FC<Props> = ({ children, title }) => {
             <ArrowLeft />
           </div>
           <h1 className="text-xl md:text-3xl font-starnest-bold text-black">
-            {title ? title : "Hello, Mike"}
+            {title ? title : `Hello, ${user?.first_name}`}
           </h1>
         </div>
         {children ? (
@@ -31,6 +33,15 @@ const Header: React.FC<Props> = ({ children, title }) => {
           </div>
         ) : (
           <div className="flex items-center space-x-4">
+            {user?.is_staff && (
+              <Link
+                to={`/admin`}
+                className="text-xs text-purple-500 flex gap-1 items-center hover:bg-purple-50 p-1 rounded-lg"
+              >
+                <div className="">Go to Admin</div>
+                <ArrowRight size={15} />
+              </Link>
+            )}
             <Link to={`/dashboard/notifications`} className="relative">
               <div className="h-2 w-2 rounded-full bg-red-500 absolute top-0 right-0"></div>
               <FiBell className="text-xl text-black cursor-pointer" />

@@ -85,6 +85,10 @@ a {
   text-decoration: inherit;
 }
 
+b {
+  font-family: var(--font-starnest-mid);
+}
+
 /* a:hover {
   font-family: var(--font-starnest-mid);
 } */

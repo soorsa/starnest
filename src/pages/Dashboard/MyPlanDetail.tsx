@@ -1,46 +1,17 @@
 import React from "react";
-import PlanPaymentList from "../../components/DashboardComponents/PlanPaymentList";
+import { useParams } from "react-router-dom";
 import PlanCardSummary from "../../components/DashboardComponents/PlanItemSummary";
+import PlanPaymentList from "../../components/DashboardComponents/PlanPaymentList";
+import { useGetUserPlanByID } from "../../hooks/querys/useSavingPlan";
 
 const MyPlanDetail: React.FC = () => {
-  const data: PlanPayment[] = [
-    {
-      id: 1,
-      title: "Soosoil inc.",
-      status: "paid",
-      amount: 2000,
-      due_date: "2025-11-23 14:22:26",
-    },
-    {
-      id: 1,
-      title: "Soosoil inc.",
-      status: "missed",
-      amount: 2000,
-      due_date: "2025-12-23 14:22:26",
-    },
-    {
-      id: 1,
-      title: "Soosoil inc.",
-      status: "missed",
-      amount: 2000,
-      due_date: "2026-01-23 14:22:26",
-    },
-    {
-      id: 1,
-      title: "Soosoil inc.",
-      status: "upcomming",
-      amount: 2000,
-      due_date: "2026-02-23 14:22:26",
-    },
-  ];
+  const params = useParams();
+  const id = params.id;
+  const { data } = useGetUserPlanByID(Number(id));
   return (
     <div className="grid md:grid-cols-2 gap-4">
-      <div className="">
-        <PlanCardSummary />
-      </div>
-      <div className="">
-        <PlanPaymentList data={data} />
-      </div>
+      <div className="">{data && <PlanCardSummary userPlan={data} />}</div>
+      <div className="">{data && <PlanPaymentList user_plan={data} />}</div>
     </div>
   );
 };

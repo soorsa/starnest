@@ -1,10 +1,14 @@
 // components/Modal.tsx
 import { useEffect } from "react";
 import { IoClose } from "react-icons/io5";
+import { useLocation } from "react-router-dom";
 import { useModal } from "../../zustand/modal.state";
 
 const Modal = () => {
   const { isOpen, content, closeModal } = useModal();
+  const location = useLocation();
+  const pathname = location.pathname;
+  console.log(pathname);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -24,11 +28,13 @@ const Modal = () => {
 
   return (
     <div
-      className="fixed inset-0 flex items-center justify-center bg-black/50 z-50"
-      onClick={closeModal}
+      className="fixed inset-0 flex items-center justify-center bg-black/50 z-50 backdrop-blur-xs"
+      // onClick={closeModal}
     >
       <div
-        className="bg-white p-10 rounded-[25px] shadow-lg w-fit relative"
+        className={`bg-white p-10 rounded-[25px] shadow-lg w-fit relative ${
+          pathname === "/admin" && ""
+        }`}
         onClick={(e) => e.stopPropagation()}
       >
         <button

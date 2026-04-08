@@ -1,18 +1,13 @@
-import { FaHome } from "react-icons/fa";
-import { RiAppsLine } from "react-icons/ri";
+import { ChartBar, Home, Star, Stars } from "lucide-react";
 import React from "react";
-import MobileNavItem from "./MobileNavItem";
-import { ChartBar, Star, Stars } from "lucide-react";
+import { RiAppsLine } from "react-icons/ri";
 import { NavLink } from "react-router-dom";
+import MobileNavItem from "./MobileNavItem";
 
 const MobileBottomNav: React.FC = () => {
   return (
     <nav className="fixed bottom-0 left-0 right-0 flex justify-around px-2 py-4 bg-primary shadow-lg shadow-black md:hidden">
-      <MobileNavItem
-        label="Home"
-        icon={<FaHome size={24} />}
-        path="/dashboard"
-      />
+      <MobileNavItem label="Home" icon={<Home size={24} />} path="/dashboard" />
       <MobileNavItem
         label="My Plans"
         icon={<Stars size={24} />}
@@ -22,7 +17,7 @@ const MobileBottomNav: React.FC = () => {
         to={`/dashboard/plans`}
         end={true}
         className={({ isActive }) =>
-          `flex items-center justify-center w-18 h-18 -mt-8 rounded-full shadow-2xl ${
+          `flex items-center justify-center w-18 h-18 -mt-8 rounded-full shadow-2xl border-4 ${
             isActive ? "bg-yellow-600 text-white" : "bg-white text-gray-500"
           }`
         }
