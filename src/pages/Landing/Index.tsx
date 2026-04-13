@@ -1,14 +1,15 @@
+import { ArrowUpRightFromCircle } from "lucide-react";
 import React from "react";
 import Button from "../../components/GeneralComponent/Button";
-import Stats from "../../components/LandingPageComponents/Stats";
-import { ArrowUpRightFromCircle } from "lucide-react";
-import WhyChoseUs from "../../components/LandingPageComponents/WhyChoseUs";
-import WhatWeOffer from "../../components/LandingPageComponents/WhatWeOffer";
+import LinkButton from "../../components/GeneralComponent/LinkButton";
 import AboutUseSection from "../../components/LandingPageComponents/AboutUseSection";
-import MissionVision from "../../components/LandingPageComponents/MissionVision";
-import GetStartedGuide from "../../components/LandingPageComponents/GetStartedGuide";
-import Testimonials from "../../components/LandingPageComponents/Testimonials";
 import ContactSection from "../../components/LandingPageComponents/ContactSection";
+import GetStartedGuide from "../../components/LandingPageComponents/GetStartedGuide";
+import MissionVision from "../../components/LandingPageComponents/MissionVision";
+import Stats from "../../components/LandingPageComponents/Stats";
+import Testimonials from "../../components/LandingPageComponents/Testimonials";
+import WhatWeOffer from "../../components/LandingPageComponents/WhatWeOffer";
+import WhyChoseUs from "../../components/LandingPageComponents/WhyChoseUs";
 
 const Index: React.FC = () => {
   return (
@@ -28,7 +29,8 @@ const Index: React.FC = () => {
                 Financial Freedom.
               </div>
               <div className="flex gap-4 text-xs md:text-base">
-                <Button
+                <LinkButton
+                  link="/register"
                   rightIcon={<ArrowUpRightFromCircle size={20} />}
                   label="Get Started"
                   className="max-w-[150px] md:max-w-[240px]"

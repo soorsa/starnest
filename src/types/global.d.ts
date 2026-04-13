@@ -160,6 +160,11 @@ interface ErrorResponse {
   message: string;
   detail: string;
 }
+interface PasswordErrorResponse {
+  old_password: string[];
+  new_password: string[];
+  new_password2: string[];
+}
 interface JoinPlanPayload {
   plan_id: number;
   hands: number;
@@ -244,4 +249,11 @@ interface UserUpdatePayload {
   account_name?: string;
   account_number?: string;
   bvn?: string;
+
+  password?: string;
+}
+interface PasswordPayload {
+  old_password: string;
+  new_password: string;
+  new_password2: string;
 }

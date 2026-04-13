@@ -7,7 +7,9 @@ import { formatPrice } from "../../utils/formatter";
 import { useModal } from "../../zustand/modal.state";
 import Button from "../GeneralComponent/Button";
 
+import toast from "react-hot-toast";
 import { useUpdateUser } from "../../hooks/mutations/useUsers";
+import { usePaystackPayment } from "../../hooks/payments/usePaystack";
 import { useUserState } from "../../zustand/user.state";
 import InputField from "../FormComponents/InputField";
 interface Prop {
@@ -15,6 +17,7 @@ interface Prop {
 }
 const ClearanceModal: React.FC<Prop> = ({ item }) => {
   const { mutate, isPending } = useClearance();
+  const paystack = usePaystackPayment();
   const { mutate: setBankDetails, isPending: settingBankDetails } =
     useUpdateUser();
   const { user } = useUserState();
@@ -30,9 +33,19 @@ const ClearanceModal: React.FC<Prop> = ({ item }) => {
     account_number: Yup.string().required("required"),
   });
   const handleSubmit = (values: typeof initialValues) => {
-    setBankDetails(values, {
+    paystack({
+      email: user?.email || "",
+      amount: 1500,
+      reference: "",
       onSuccess() {
-        mutate({ id: item.id });
+        setBankDetails(values, {
+          onSuccess() {
+            mutate({ id: item.id });
+          },
+        });
+      },
+      onClose() {
+        toast.error("Paystack closed");
       },
     });
   };

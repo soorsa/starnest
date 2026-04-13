@@ -3,6 +3,7 @@ import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import * as Yup from "yup";
 import InputField from "../../components/FormComponents/InputField";
+import PhoneNumberInput from "../../components/FormComponents/PhoneNumberInput";
 import Button from "../../components/GeneralComponent/Button";
 import { useRegister } from "../../hooks/auth/useAuth";
 import { useModal } from "../../zustand/modal.state";
@@ -60,7 +61,8 @@ const Register = () => {
             <InputField name="last_name" placeholder="Last Name" />
           </div>
           <InputField name="email" placeholder="Email Address" />
-          <InputField name="phone_number" placeholder="Phone Number" />
+          <PhoneNumberInput name="phone_number" placeholder="Phone Number" />
+          {/* <InputField name="phone_number" placeholder="Phone Number" /> */}
           <InputField
             name="password"
             type={showPassword ? "text" : "password"}

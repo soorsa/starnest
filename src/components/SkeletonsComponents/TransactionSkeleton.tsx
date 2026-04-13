@@ -13,13 +13,13 @@ const TransactionSkeleton = () => {
               <ArrowLeftRight className="text-gray-500" />
             </div>
             <div className="px-2 flex-1 space-y-1">
-              <div className="bg-gray-400 animate-pulse p-2 rounded-sm w-1/2" />
-              <div className="bg-gray-400 animate-pulse p-2 rounded-sm" />
+              <div className="bg-gray-300 animate-pulse p-2 rounded-sm w-1/2" />
+              <div className="bg-gray-300 animate-pulse p-2 rounded-sm" />
             </div>
           </div>
           <div className="space-y-1">
-            <div className="bg-gray-400 animate-pulse p-2  px-5 rounded-sm" />
-            <div className="bg-gray-400 animate-pulse p-2 px-5  rounded-sm" />
+            <div className="bg-gray-300 animate-pulse p-2  px-5 rounded-sm" />
+            <div className="bg-gray-300 animate-pulse p-2 px-5  rounded-sm" />
           </div>
         </div>
       ))}

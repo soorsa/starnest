@@ -27,6 +27,7 @@ import AboutUs from "../pages/Landing/About-Us";
 import ContactUs from "../pages/Landing/Contact-Us";
 import Index from "../pages/Landing/Index";
 import * as Layout from "../pages/Landing/Layout";
+import PageNotFound from "../pages/PageNotFound";
 import AdminRoutes from "./admin.routes";
 import AuthenticationRoute from "./auth.routes";
 import ProtectedRoutes from "./dashboard.routes";
@@ -52,7 +53,6 @@ const AppRoutes = () => {
                 <Route path="/contact" element={<ContactUs />} />
               </Route>
             </Route>
-
             {/* Protected Routes - Dashboard */}
             <Route path="/dashboard/*" element={<ProtectedRoutes />}>
               <Route element={<DashboardLayout />}>
@@ -64,6 +64,7 @@ const AppRoutes = () => {
                 <Route path="transactions" element={<Transactions />} />
                 <Route path="profile" element={<Profile />} />
                 <Route path="more" element={<More />} />
+                <Route path="*" element={<PageNotFound />} />
               </Route>
             </Route>
             <Route path="/admin/*" element={<AdminRoutes />}>
@@ -89,6 +90,8 @@ const AppRoutes = () => {
                 <Route path="/register" element={<Register />} />
               </Route>
             </Route>
+
+            <Route path="*" element={<PageNotFound />} />
           </Routes>
         </Suspense>
         <Toast />

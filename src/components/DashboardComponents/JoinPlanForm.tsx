@@ -1,11 +1,14 @@
 import { Form, Formik } from "formik";
 import { ArrowRight, Info, X } from "lucide-react";
 import React, { useEffect } from "react";
+import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { useJoinPlan } from "../../hooks/mutations/useSavingPlan";
+import { usePaystackPayment } from "../../hooks/payments/usePaystack";
 import { formatPrice } from "../../utils/formatter";
 import { useModal } from "../../zustand/modal.state";
+import { useUserState } from "../../zustand/user.state";
 import InputField from "../FormComponents/InputField";
 import RadioGroup from "../FormComponents/RadioGroup";
 import Button from "../GeneralComponent/Button";
@@ -17,6 +20,8 @@ interface Prop {
 
 const JoinPlanModal: React.FC<Prop> = ({ plan }) => {
   const { mutate: joinPlan, isPending } = useJoinPlan();
+  const { user } = useUserState();
+  const paystack = usePaystackPayment();
   const navigate = useNavigate();
   const modal = useModal();
   const paymentTypeOption = [
@@ -47,7 +52,11 @@ const JoinPlanModal: React.FC<Prop> = ({ plan }) => {
   };
 
   const handleSubmit = (values: typeof initialValues) => {
-    console.log(values);
+    const amount =
+      values.payment_type === "monthly"
+        ? Number(values.number_of_months) * Number(plan.amount_per_cycle)
+        : Number(plan.amount_per_cycle);
+    const total_amount_payable = amount * Number(values.hands) + 2500;
     const payload: JoinPlanPayload = {
       plan_id: Number(plan.id),
       hands: Number(values.hands),
@@ -56,12 +65,26 @@ const JoinPlanModal: React.FC<Prop> = ({ plan }) => {
           ? plan.duration
           : Number(values.number_of_months),
     };
-    joinPlan(payload, {
-      onSuccess(data) {
-        modal.openModal(
-          <StatusModal title="Congrats!" msg={data.message} status="success" />
-        );
-        navigate(`/dashboard/my-plans/${data.plan_id}`);
+    paystack({
+      email: user?.email || "",
+      amount: total_amount_payable,
+      reference: "",
+      onSuccess() {
+        joinPlan(payload, {
+          onSuccess(data) {
+            modal.openModal(
+              <StatusModal
+                title="Congrats!"
+                msg={data.message}
+                status="success"
+              />
+            );
+            navigate(`/dashboard/my-plans/${data.plan_id}`);
+          },
+        });
+      },
+      onClose() {
+        toast.error("Paystack closed");
       },
     });
   };

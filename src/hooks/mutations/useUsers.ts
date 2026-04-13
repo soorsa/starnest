@@ -41,3 +41,45 @@ export const useUpdateUser = () => {
     },
   });
 };
+export const useChangePassword = () => {
+  const qc = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (payload: PasswordPayload) => {
+      const formData = new FormData();
+
+      Object.entries(payload).forEach(([key, value]) => {
+        if (value !== undefined && value !== null && value !== "") {
+          formData.append(key, value);
+        }
+      });
+
+      const res = await api.post(`/auth/change-password/`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      return res.data;
+    },
+
+    onSuccess() {
+      qc.invalidateQueries({ queryKey: ["user"] });
+      qc.invalidateQueries({ queryKey: ["user-detail"] });
+      toast.success("User password changed");
+    },
+
+    onError(error: AxiosError<PasswordErrorResponse>) {
+      const errorData = error.response?.data || {};
+
+      Object.values(errorData).forEach((messages) => {
+        if (Array.isArray(messages)) {
+          messages.forEach((message) => {
+            toast.error(message);
+          });
+        }
+      });
+      // toast.error(message);
+    },
+  });
+};

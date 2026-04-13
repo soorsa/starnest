@@ -95,16 +95,16 @@ interface CardSkeletonProps {
 const CardSkeleton: React.FC<CardSkeletonProps> = ({ isActive = false }) => {
   return (
     <div
-      className={`flex flex-col hover:bg-gray-500/10 cursor-pointer border-1 border-gray-400 rounded-2xl p-4 gap-4 text-left ${
+      className={`flex flex-col hover:bg-gray-500/10 cursor-pointer border-1 border-gray-300 rounded-2xl p-4 gap-4 text-left ${
         isActive ? "bg-gray-700/50" : ""
       }`}
     >
       <div className="flex justify-between items-start">
         <div className="flex flex-1 flex-col gap-2 min-w-0 w-full">
-          <div className="h-4 bg-gray-400 rounded w-3/4 animate-pulse"></div>
-          <div className="h-8 bg-gray-400 rounded w-1/2 animate-pulse"></div>
+          <div className="h-4 bg-gray-300 rounded w-3/4 animate-pulse"></div>
+          <div className="h-8 bg-gray-300 rounded w-1/2 animate-pulse"></div>
         </div>
-        <div className="h-15 w-15 bg-gray-400 rounded-full animate-pulse"></div>
+        <div className="h-15 w-15 bg-gray-300 rounded-full animate-pulse"></div>
       </div>
     </div>
   );

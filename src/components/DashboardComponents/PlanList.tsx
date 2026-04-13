@@ -1,5 +1,6 @@
-import { AlertCircle, Loader, Search } from "lucide-react";
+import { Search } from "lucide-react";
 import React from "react";
+import PlanListSkeleton from "../SkeletonsComponents/PlanListSkeleton";
 import ErrorPlaceholder from "./ErrorPlaceholder";
 import PlanCard from "./PlanCard";
 interface Prop {
@@ -8,22 +9,18 @@ interface Prop {
   isError: boolean;
 }
 const PlanList: React.FC<Prop> = ({ plans, isLoading, isError }) => {
-  if (isLoading) {
-    return (
-      <div className="">
-        <Loader className="animate-spin" />
-      </div>
-    );
+  if (isLoading || isError) {
+    return <PlanListSkeleton />;
   }
-  if (isError) {
-    return (
-      <ErrorPlaceholder
-        icon={<AlertCircle />}
-        title="Error"
-        message="Sorry... unable to retrieve plan at the moment."
-      />
-    );
-  }
+  // if (isError) {
+  //   return (
+  //     <ErrorPlaceholder
+  //       icon={<AlertCircle />}
+  //       title="Error"
+  //       message="Sorry... unable to retrieve plan at the moment."
+  //     />
+  //   );
+  // }
   if (plans.length < 1) {
     return (
       <ErrorPlaceholder
