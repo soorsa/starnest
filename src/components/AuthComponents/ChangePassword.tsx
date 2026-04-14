@@ -13,12 +13,10 @@ const ChangePassword = () => {
   const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
 
   const initialValues = {
-    old_password: "",
     new_password: "",
     new_password2: "",
   };
   const validationSchema = Yup.object({
-    old_password: Yup.string().required("Required"),
     new_password: Yup.string().required("Required"),
     new_password2: Yup.string()
       .oneOf([Yup.ref("new_password")], "Passwords must match")
@@ -39,26 +37,6 @@ const ChangePassword = () => {
           return (
             <Form className="space-y-8">
               <div className="space-y-2">
-                <InputField
-                  label="Old Password"
-                  name="old_password"
-                  type={showPassword ? "text" : "password"}
-                  placeholder="Password"
-                  className="input"
-                  rightIcon={
-                    showPassword ? (
-                      <Eye
-                        className="text-gray-500 w-5 h-5 cursor-pointer"
-                        onClick={togglePasswordVisibility}
-                      />
-                    ) : (
-                      <EyeClosed
-                        className="text-gray-500 w-5 h-5 cursor-pointer"
-                        onClick={togglePasswordVisibility}
-                      />
-                    )
-                  }
-                />
                 <InputField
                   label="New Password"
                   name="new_password"

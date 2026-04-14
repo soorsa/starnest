@@ -1,10 +1,10 @@
-import React from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import type { sampleCards } from "./Testimonials";
+import React from "react";
+import type { testimonials } from "./Testimonials";
 import TestimonyCard from "./TestimonyCard";
 interface Props {
-  testimonials: typeof sampleCards;
+  testimonials: typeof testimonials;
 }
 const TestimonialSlider: React.FC<Props> = ({ testimonials }) => {
   const [emblaRef, embla] = useEmblaCarousel({

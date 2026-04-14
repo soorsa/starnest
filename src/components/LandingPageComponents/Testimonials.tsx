@@ -1,73 +1,49 @@
 import React from "react";
 import TestimonialSlider from "./TestimonialSlider";
-export const sampleCards = [
+export const testimonials = [
   {
-    name: "Beautiful Landscape",
+    name: "Chinedu Okafor",
+    role: "Entrepreneur",
     description:
-      "Experience the breathtaking views of mountains and valleys with our guided tours. Perfect for nature lovers and adventure seekers.",
-    image:
-      "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-    role: "Entreprenuer",
+      "Starnest helped me stay consistent with my savings. For the first time, I was able to complete a financial goal without stress.",
+    image: "https://randomuser.me/api/portraits/men/32.jpg",
   },
   {
-    name: "Urban Adventure",
+    name: "Aisha Bello",
+    role: "Fashion Designer",
     description:
-      "Discover the hidden gems of the city with our urban exploration packages. From historic sites to modern architecture.",
-    image:
-      "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-    role: "Store Owner",
+      "I love how simple and structured everything is. I just pick a plan, save consistently, and watch my money grow.",
+    image: "https://randomuser.me/api/portraits/women/44.jpg",
   },
   {
-    name: "Beach Paradise",
+    name: "Emeka Nwosu",
+    role: "Business Owner",
     description:
-      "Relax and unwind at the world's most beautiful beaches. Crystal clear waters and white sandy beaches await you.",
-    image:
-      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-    role: "Farmer",
+      "The discipline this platform gives is unmatched. I’ve saved more in 3 months than I did the whole of last year.",
+    image: "https://randomuser.me/api/portraits/men/65.jpg",
   },
   {
-    name: "Mountain Trekking",
-    image:
-      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-    description:
-      "Challenge yourself with our mountain trekking expeditions. Suitable for both beginners and experienced hikers.",
+    name: "Fatima Lawal",
     role: "Teacher",
+    description:
+      "Starnest made saving feel easy. The reminders and structure really helped me stay on track.",
+    image: "https://randomuser.me/api/portraits/women/68.jpg",
   },
   {
-    name: "Mountain Trekking",
-    image:
-      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+    name: "David Ogunleye",
+    role: "Software Developer",
     description:
-      "Challenge yourself with our mountain trekking expeditions. Suitable for both beginners and experienced hikers.",
-    role: "Adventure",
+      "I like the transparency and how I can track everything. It gives me confidence that my money is safe and growing.",
+    image: "https://randomuser.me/api/portraits/men/75.jpg",
   },
   {
-    name: "Mountain Trekking",
-    image:
-      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+    name: "Blessing Eze",
+    role: "Student",
     description:
-      "Challenge yourself with our mountain trekking expeditions. Suitable for both beginners and experienced hikers.",
-    role: "Adventure",
-  },
-  {
-    name: "Mountain Trekking",
-    image:
-      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-    description:
-      "Challenge yourself with our mountain trekking expeditions. Suitable for both beginners and experienced hikers.",
-    role: "Adventure",
-  },
-  {
-    id: 4,
-    name: "Mountain Trekking",
-    image:
-      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-    description:
-      "Challenge yourself with our mountain trekking expeditions. Suitable for both beginners and experienced hikers.",
-    role: "Adventure",
+      "Even as a student, I’ve been able to save small amounts consistently. It really adds up over time.",
+    image: "https://randomuser.me/api/portraits/women/12.jpg",
   },
 ];
-
 const Testimonials: React.FC = () => {
   return (
     <div className="py-10 px-5 bg-white rounded-lg w-[95%] mx-auto">
@@ -75,7 +51,7 @@ const Testimonials: React.FC = () => {
       <div className="text-4xl font-starnest-bold">
         <span className="text-orange-400">Trusted</span> by Users Everwhere
       </div>
-      <TestimonialSlider testimonials={sampleCards} />
+      <TestimonialSlider testimonials={testimonials} />
     </div>
   );
 };

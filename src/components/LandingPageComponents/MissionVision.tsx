@@ -3,14 +3,13 @@ import React from "react";
 const MISSON_AND_VISION = [
   {
     header: "Mission",
-    desc: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using lorem ipsum is that it has a more-or-less normal.",
+    desc: "To empower individuals across Africa with simple, reliable, and accessible savings solutions that promote financial discipline, stability, and long-term wealth creation.",
   },
   {
     header: "Vision",
-    desc: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using lorem ipsum is that it has a more-or-less normal.",
+    desc: "To become a leading financial platform in Africa where everyone, regardless of background, can confidently grow their money and achieve financial freedom.",
   },
 ];
-
 const MissionVision: React.FC = () => {
   return (
     <div className="bg-white py-10 px-5 grid">

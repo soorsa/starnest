@@ -2,19 +2,19 @@ import React from "react";
 const STEPS = [
   {
     title: "Create Account",
-    desc: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.",
+    desc: "Sign up in minutes and set up your profile to get started on your savings journey.",
   },
   {
     title: "Select Savings Plan",
-    desc: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.",
+    desc: "Choose a plan that matches your financial goals and how much you want to save.",
   },
   {
     title: "Watch It Grow",
-    desc: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.",
+    desc: "Make regular contributions and track your progress as your savings steadily increase.",
   },
   {
     title: "Cash It Out",
-    desc: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.",
+    desc: "Withdraw your savings along with your earnings once your plan is completed.",
   },
 ];
 const GetStartedGuide: React.FC = () => {

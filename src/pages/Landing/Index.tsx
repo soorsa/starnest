@@ -25,8 +25,8 @@ const Index: React.FC = () => {
               <div className="md:text-base">
                 <span className="font-starnest-bold">StarNest </span>
                 is a Trusted and Respected Platform with a mission to Grow
-                African Businesses and Economy From The Nest and Unlock
-                Financial Freedom.
+                African Families, Businesses and Economy From The Nest and
+                Unlock Financial Freedom.
               </div>
               <div className="flex gap-4 text-xs md:text-base">
                 <LinkButton

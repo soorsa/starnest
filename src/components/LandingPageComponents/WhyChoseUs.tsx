@@ -2,23 +2,23 @@ import { Coins, Lightbulb, PercentCircle, ShieldCheck } from "lucide-react";
 import React from "react";
 const REASONS = [
   {
-    title: "Trusted",
-    desc: "We follow the latest developments in the building materials and technologies market, use only safe materials from trusted manufacturers and carefully select each specialist",
+    title: "Trusted Platform",
+    desc: "Your funds are managed with transparency and security. We prioritize trust, giving you full visibility and confidence in every step of your savings journey.",
     icon: <ShieldCheck size={70} />,
   },
   {
-    title: "Best Oportunities",
-    desc: "We follow the latest developments in the building materials and technologies market, use only safe materials from trusted manufacturers and carefully select each specialist",
+    title: "Best Opportunities",
+    desc: "Access carefully designed savings plans that help you grow your money steadily and take advantage of real financial opportunities.",
     icon: <Lightbulb size={70} />,
   },
   {
-    title: "Guarantueed Income",
-    desc: "We follow the latest developments in the building materials and technologies market, use only safe materials from trusted manufacturers and carefully select each specialist",
+    title: "Reliable Returns",
+    desc: "Enjoy consistent and predictable returns that help you plan ahead and stay in control of your financial future.",
     icon: <Coins size={70} />,
   },
   {
-    title: "Guarantueed Income",
-    desc: "We follow the latest developments in the building materials and technologies market, use only safe materials from trusted manufacturers and carefully select each specialist",
+    title: "Competitive Rates",
+    desc: "Benefit from attractive interest rates that ensure your savings work harder and deliver meaningful growth over time.",
     icon: <PercentCircle size={70} />,
   },
 ];

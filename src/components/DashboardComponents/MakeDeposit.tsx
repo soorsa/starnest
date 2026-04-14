@@ -1,10 +1,13 @@
 import { Form, Formik } from "formik";
 import { ArrowRight, Info, X } from "lucide-react";
 import React from "react";
+import toast from "react-hot-toast";
 import * as Yup from "yup";
 import { useMakeDeposit } from "../../hooks/mutations/useSavingPlan";
+import { usePaystackPayment } from "../../hooks/payments/usePaystack";
 import { formatDate, formatPrice } from "../../utils/formatter";
 import { useModal } from "../../zustand/modal.state";
+import { useUserState } from "../../zustand/user.state";
 import RadioGroup from "../FormComponents/RadioGroup";
 import Button from "../GeneralComponent/Button";
 import StatusModal from "./StatusModal";
@@ -15,6 +18,8 @@ interface Prop {
 }
 const MakeDeposit: React.FC<Prop> = ({ single = true, user_plan }) => {
   const modal = useModal();
+  const { user } = useUserState();
+  const paystack = usePaystackPayment();
   const { mutate, isPending } = useMakeDeposit();
   // Generate months options dynamically from plan duration
   const remaining_months =
@@ -36,11 +41,28 @@ const MakeDeposit: React.FC<Prop> = ({ single = true, user_plan }) => {
       user_plan_id: Number(user_plan.id),
       number_of_months: single ? 1 : Number(values.number_of_months),
     };
-    mutate(payload, {
-      onSuccess(data) {
-        modal.openModal(
-          <StatusModal title="Success!" msg={data.message} status="success" />
-        );
+    const amount =
+      Number(values.number_of_months) * Number(user_plan.amount_per_month);
+
+    paystack({
+      email: user?.email || "",
+      amount: amount,
+      reference: "",
+      onSuccess() {
+        mutate(payload, {
+          onSuccess(data) {
+            modal.openModal(
+              <StatusModal
+                title="Success!"
+                msg={data.message}
+                status="success"
+              />
+            );
+          },
+        });
+      },
+      onClose() {
+        toast.error("Paystack closed");
       },
     });
   };

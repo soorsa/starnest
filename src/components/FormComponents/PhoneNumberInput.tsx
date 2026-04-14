@@ -45,7 +45,7 @@ const PhoneNumberInput: React.FC<PhoneNumberInputProps> = ({
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           onChange={(value: any) => helpers.setValue(value || "")}
           placeholder={placeholder}
-          className="flex-1 phone-input-custom text-sm"
+          className="flex-1 phone-input-custom text-sm outinl"
           // You can pass more props like numberInputProps if needed
         />
 

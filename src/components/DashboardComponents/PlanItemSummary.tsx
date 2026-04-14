@@ -74,7 +74,7 @@ const PlanCardSummary: React.FC<Prop> = ({ userPlan }) => {
         </div>
       </div>
 
-      {!is_ready_for_clearance && (
+      {is_ready_for_clearance && (
         <div className="p-4 bg-white rounded-2xl flex gap-1">
           <div className="text-left text-sm gap-2 flex-1">
             <div className="">Proceed to withdraw your reward and savings</div>
