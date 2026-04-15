@@ -1,4 +1,4 @@
-import { CheckCircle, Info, PlusCircle } from "lucide-react";
+import { CheckCircle, Info, PlusCircle, PlusSquare } from "lucide-react";
 import toast from "react-hot-toast";
 import ReactPlayer from "react-player";
 import { useParams } from "react-router-dom";
@@ -66,6 +66,23 @@ const PlanDetailPage = () => {
                 <p className="text-sm text-gray-500">
                   Reward after {data?.duration} months
                 </p>
+              </div>
+              <div
+                onClick={openModal}
+                className="cursor-pointer block md:hidden bg-white hover:bg-gradient-to-br group from-sky-600 to-sky-900 hover:text-white! rounded-xl px-5 py-3 shadow-sm border border-gray-200"
+              >
+                <p className="text-sm text-gray-500 group-hover:text-gray-200">
+                  Join Plan with
+                </p>
+                <div className="flex items-center gap-1">
+                  <span className="text-2xl font-starnest-bold group-hover:text-white text-sky-600">
+                    {formatPrice(data?.amount_per_cycle || "")}
+                  </span>
+                </div>
+                <div className="text-sm flex items-center gap-1 text-gray-500 group-hover:text-gray-200">
+                  <PlusSquare size={16} />
+                  {formatPrice(2500)} activation fee
+                </div>
               </div>
             </div>
           </div>

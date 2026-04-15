@@ -9,7 +9,7 @@ import { usePaystackPayment } from "../../hooks/payments/usePaystack";
 import { formatPrice } from "../../utils/formatter";
 import { useModal } from "../../zustand/modal.state";
 import { useUserState } from "../../zustand/user.state";
-import InputField from "../FormComponents/InputField";
+import NumberInput from "../FormComponents/NumberInput";
 import RadioGroup from "../FormComponents/RadioGroup";
 import Button from "../GeneralComponent/Button";
 import StatusModal from "./StatusModal";
@@ -47,7 +47,7 @@ const JoinPlanModal: React.FC<Prop> = ({ plan }) => {
 
   const initialValues = {
     payment_type: plan.type === "one time" ? "one-time" : "",
-    hands: "1",
+    hands: 1,
     number_of_months: "1",
   };
 
@@ -136,11 +136,11 @@ const JoinPlanModal: React.FC<Prop> = ({ plan }) => {
                     </h2>
                     <hr className="w-full text-gray-300" />
                   </div>
-                  <div className="grid grid-cols-3 gap-1">
+                  <div className="space-y-1">
                     <div className="col-span-2 text-sm text-gray-700">
                       How many hands do you want?
                     </div>
-                    <InputField name="hands" className="w-fit!" />
+                    <NumberInput min={1} name="hands" />
                   </div>
                   {plan.type === "monthly" && (
                     <div className="space-y-1">

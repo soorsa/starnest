@@ -1,6 +1,6 @@
-import { Loader } from "lucide-react";
 import { Suspense, lazy } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import DashboardLayoutSkeleton from "../components/SkeletonsComponents/DashboardLayoutSkeleton";
 import Modal from "../components/UtilityComponents/Modal";
 import Toast from "../components/UtilityComponents/Toast";
 import { useGetUser } from "../hooks/auth/useAuth";
@@ -19,6 +19,7 @@ import DashboardIndex from "../pages/Dashboard/Index";
 import More from "../pages/Dashboard/More";
 import MyPlanDetail from "../pages/Dashboard/MyPlanDetail";
 import MyPlans from "../pages/Dashboard/MyPlans";
+import Notifications from "../pages/Dashboard/Notifications";
 import PlanDetailPage from "../pages/Dashboard/PlanDetailPage";
 import Plans from "../pages/Dashboard/Plans";
 import Profile from "../pages/Dashboard/Profile";
@@ -44,7 +45,7 @@ const AppRoutes = () => {
     <>
       <BrowserRouter>
         {/* <Suspense fallback={<StartUp className="w-full md:w-[40%]" />}> */}
-        <Suspense fallback={<Loader className="animate-spin text-gray-500" />}>
+        <Suspense fallback={<DashboardLayoutSkeleton />}>
           <Routes>
             <Route path="/" element={<GeneralRoutes />}>
               <Route element={<Layout.default />}>
@@ -62,6 +63,7 @@ const AppRoutes = () => {
                 <Route path="my-plans" element={<MyPlans />} />
                 <Route path="my-plans/:id" element={<MyPlanDetail />} />
                 <Route path="transactions" element={<Transactions />} />
+                <Route path="notifications" element={<Notifications />} />
                 <Route path="profile" element={<Profile />} />
                 <Route path="more" element={<More />} />
                 <Route path="*" element={<PageNotFound />} />
@@ -76,6 +78,7 @@ const AppRoutes = () => {
                 <Route path="active-plans/:id" element={<ActivePlanDetail />} />
                 <Route path="users" element={<Users />} />
                 <Route path="users/:id" element={<UserDetail />} />
+                <Route path="posts" element={<UserDetail />} />
                 <Route
                   path="transactions"
                   element={<AdminTransactions.default />}

@@ -47,6 +47,8 @@ const LINKS = [
   },
 ];
 const Footer: React.FC = () => {
+  const date = new Date();
+  const year = date.getFullYear();
   return (
     <div className="p-5 bg-white">
       <div className="grid md:grid-cols-4 ">
@@ -80,7 +82,7 @@ const Footer: React.FC = () => {
           </div>
         ))}
         <div className="md:col-span-4 border-t mt-4 p-4 text-sm border-t-gray-300">
-          Copyright@2025 Starnest.
+          Copyright@{year} Starnest.
         </div>
       </div>
     </div>

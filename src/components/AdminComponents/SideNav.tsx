@@ -4,6 +4,7 @@ import {
   Home,
   Lock,
   LogOut,
+  Newspaper,
   Settings,
   Star,
   Stars,
@@ -23,6 +24,11 @@ const NAVITEMS = [
     label: "Transactions",
     path: "/admin/transactions",
     icon: <ChartBar />,
+  },
+  {
+    label: "Announcements",
+    path: "/admin/posts",
+    icon: <Newspaper />,
   },
 ];
 const SideNav = () => {

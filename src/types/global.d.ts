@@ -27,8 +27,15 @@ interface GoalProgressCardProps {
   percentage: number;
   status: SavingPlanStatus;
 }
+interface Feeds {
+  id: number;
+  title: string;
+  content: string;
+  created_at: string;
+}
 type UserSavingPlanResponse = PaginatedResponse<UserSavingPlan>;
 type TransactionResponse = PaginatedResponse<Transaction>;
+type FeedsResponse = PaginatedResponse<Feeds>;
 interface UserSavingPlan {
   id: number;
   plan: Plan;

@@ -87,7 +87,7 @@ const Register = () => {
             isLoading={isPending}
             disabled={isPending || !isValid}
             label="Submit"
-            loadingLabel="Sending..."
+            loadingLabel="Signing up..."
             className="!bg-black w-full py-2 rounded-full mt-10"
           />
           {/* Link to switch between forms */}
