@@ -1,7 +1,7 @@
 import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import React from "react";
-import type { testimonials } from "./Testimonials";
+import type { testimonials } from "../../data/constants";
 import TestimonyCard from "./TestimonyCard";
 interface Props {
   testimonials: typeof testimonials;

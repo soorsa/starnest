@@ -1,7 +1,7 @@
 import React from "react";
-import type { sampleCards } from "./Testimonials";
+import type { testimonials } from "../../data/constants";
 interface Props {
-  testimonial: (typeof sampleCards)[0];
+  testimonial: (typeof testimonials)[0];
 }
 const TestimonyCard: React.FC<Props> = ({ testimonial }) => {
   return (
