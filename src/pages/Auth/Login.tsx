@@ -1,6 +1,7 @@
 import { Form, Formik } from "formik";
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import * as Yup from "yup";
 import InputField from "../../components/FormComponents/InputField";
 import Button from "../../components/GeneralComponent/Button";
@@ -68,9 +69,12 @@ const Login = () => {
               />
               <label htmlFor="remember">Remember me</label>
             </div>
-            <span className="text-[#FF4A1B] text-xs cursor-pointer">
+            <Link
+              to={`/forgot-password`}
+              className="text-[#FF4A1B] text-xs cursor-pointer"
+            >
               Forgot password?
-            </span>
+            </Link>
           </div>
           <Button
             type="submit"

@@ -139,6 +139,14 @@ interface RegisterPayload {
   first_name: string;
   last_name: string;
 }
+interface ForgotPasswordPayload {
+  email: string;
+}
+interface ResetPasswordPayload {
+  password: string;
+  uid: string;
+  token: string;
+}
 interface PaginatedResponse<T> {
   count: number;
   next: string | null;

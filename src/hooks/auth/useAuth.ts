@@ -26,6 +26,14 @@ export const logout = async () => {
   window.location.reload(); // Optional: Refresh page to clear UI state
   toast.success("Logged out successfully!"); // Show logout success message
 };
+const forgotPassword = async (payload: ForgotPasswordPayload) => {
+  const res = await api.post(`/auth/forgot-password/`, payload);
+  return res.data;
+};
+const resetPassword = async (payload: ResetPasswordPayload) => {
+  const res = await api.post(`/auth/reset-password/`, payload);
+  return res.data;
+};
 
 export const useLogin = () => {
   const queryClient = useQueryClient();
@@ -111,4 +119,59 @@ export const useGetUser = () => {
   }, [queryResult.data]);
 
   return queryResult;
+};
+
+export const useForgotPassword = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: forgotPassword,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["user"],
+      });
+      toast.success(`Reset link sent successfully...`);
+    },
+    onError: (error: AxiosError<RegisterError>) => {
+      if (error.response?.data) {
+        const errorData = error.response.data;
+
+        Object.values(errorData).forEach((messages) => {
+          if (Array.isArray(messages)) {
+            messages.forEach((message) => {
+              toast.error(message);
+            });
+          }
+        });
+      } else {
+        toast.error("Failed to sent mail!");
+      }
+    },
+  });
+};
+export const useResetPassword = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: resetPassword,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["user"],
+      });
+      toast.success(`Reset password successfully...`);
+    },
+    onError: (error: AxiosError<RegisterError>) => {
+      if (error.response?.data) {
+        const errorData = error.response.data;
+
+        Object.values(errorData).forEach((messages) => {
+          if (Array.isArray(messages)) {
+            messages.forEach((message) => {
+              toast.error(message);
+            });
+          }
+        });
+      } else {
+        toast.error("Reset password Failed!");
+      }
+    },
+  });
 };

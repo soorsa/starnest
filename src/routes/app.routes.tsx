@@ -13,8 +13,10 @@ import * as AdminTransactions from "../pages/Admin/Transactions";
 import UserDetail from "../pages/Admin/UserDetail";
 import Users from "../pages/Admin/Users";
 import AuthLayout from "../pages/Auth/AuthLayout";
+import ForgotPassword from "../pages/Auth/ForgotPassword";
 import Login from "../pages/Auth/Login";
 import Register from "../pages/Auth/Register";
+import ResetPassword from "../pages/Auth/ResetPassword";
 import DashboardIndex from "../pages/Dashboard/Index";
 import More from "../pages/Dashboard/More";
 import MyPlanDetail from "../pages/Dashboard/MyPlanDetail";
@@ -91,6 +93,11 @@ const AppRoutes = () => {
               <Route element={<AuthLayout />}>
                 <Route path="/login" index element={<Login />} />
                 <Route path="/register" element={<Register />} />
+                <Route path="/forgot-password" element={<ForgotPassword />} />
+                <Route
+                  path="/reset-password/:uid/:token"
+                  element={<ResetPassword />}
+                />
               </Route>
             </Route>
 
