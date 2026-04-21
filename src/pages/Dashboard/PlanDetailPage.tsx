@@ -69,17 +69,15 @@ const PlanDetailPage = () => {
               </div>
               <div
                 onClick={openModal}
-                className="cursor-pointer block md:hidden bg-white hover:bg-gradient-to-br group from-sky-600 to-sky-900 hover:text-white! rounded-xl px-5 py-3 shadow-sm border border-gray-200"
+                className="cursor-pointer block md:hidden bg-gradient-to-br hover:bg-gradient-to-bl group from-sky-600 to-sky-900 hover:text-white! rounded-xl px-5 py-3 shadow-sm border border-gray-200"
               >
-                <p className="text-sm text-gray-500 group-hover:text-gray-200">
-                  Join Plan with
-                </p>
+                <p className="text-sm text-gray-200">Join Plan with</p>
                 <div className="flex items-center gap-1">
-                  <span className="text-2xl font-starnest-bold group-hover:text-white text-sky-600">
+                  <span className="text-2xl font-starnest-bold text-white">
                     {formatPrice(data?.amount_per_cycle || "")}
                   </span>
                 </div>
-                <div className="text-sm flex items-center gap-1 text-gray-500 group-hover:text-gray-200">
+                <div className="text-sm flex items-center gap-1 text-gray-200">
                   <PlusSquare size={16} />
                   {formatPrice(2500)} activation fee
                 </div>

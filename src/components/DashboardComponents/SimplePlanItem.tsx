@@ -10,7 +10,7 @@ const SavingProgressCard: React.FC<Prop> = ({ userPlan }) => {
     id,
     start_date,
     end_date,
-    reward,
+    total_recieveable,
     hands,
     progress_percentage,
     total_paid,
@@ -58,7 +58,7 @@ const SavingProgressCard: React.FC<Prop> = ({ userPlan }) => {
             <TrendingUp size={12} /> Reward
           </p>
           <p className="text-xs font-semibold text-green-500">
-            {formatPrice(reward)}
+            {formatPrice(total_recieveable)}
           </p>
         </div>
       </div>

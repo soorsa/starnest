@@ -27,7 +27,7 @@ const AuthLayout: React.FC = () => {
           />
         </div>
         <div className="space-y-4 mt-20 md:mt-0">
-          <div className="bg-white shadow-xs h-[95%] py-5 md:py-10 rounded-2xl">
+          <div className="bg-white shadow-xs h-[80%] py-5 md:py-10 rounded-2xl">
             <Switch />
 
             <Outlet />

@@ -46,10 +46,9 @@ const Header: React.FC<Props> = ({ children, title }) => {
               <div className="h-2 w-2 rounded-full bg-red-500 absolute top-0 right-0"></div>
               <FiBell className="text-xl text-black cursor-pointer" />
             </Link>
-            <FiSettings
-              className="text-xl text-black cursor-pointer"
-              onClick={() => navigate("/dashboard/settings")}
-            />
+            <Link to={`/dashboard/more`}>
+              <FiSettings className="text-xl text-black cursor-pointer" />
+            </Link>
           </div>
         )}
       </div>
