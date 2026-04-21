@@ -1,10 +1,13 @@
 import { Form, Formik } from "formik";
+import { useState } from "react";
 import * as Yup from "yup";
+import StatusModal from "../../components/DashboardComponents/StatusModal";
 import InputField from "../../components/FormComponents/InputField";
 import Button from "../../components/GeneralComponent/Button";
 import { useForgotPassword } from "../../hooks/auth/useAuth";
 const ForgotPassword = () => {
   const { mutate: requestLink, isPending } = useForgotPassword();
+  const [requestSent, setrequestSent] = useState(false);
   const initialValues = {
     email: "",
   };
@@ -15,8 +18,23 @@ const ForgotPassword = () => {
     const payload = {
       email: values.email,
     };
-    requestLink(payload);
+    requestLink(payload, {
+      onSuccess() {
+        setrequestSent(true);
+      },
+    });
   };
+  if (requestSent) {
+    return (
+      <div className="px-4 mx-auto">
+        <StatusModal
+          status="success"
+          title="Reset Password Link Sent"
+          msg={`A reset password link has been sent to your mail... please go to you mail and proceed to reset password`}
+        />
+      </div>
+    );
+  }
   return (
     <Formik
       initialValues={initialValues}
@@ -33,9 +51,9 @@ const ForgotPassword = () => {
           <Button
             type="submit"
             isLoading={isPending}
+            loadingLabel="Sending Link..."
             disabled={isPending || !isValid}
             label="Submit"
-            loadingLabel="Signing up..."
             className="!bg-black w-full py-2 rounded-full mt-10"
           />
         </Form>
