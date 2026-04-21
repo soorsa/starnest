@@ -1,7 +1,7 @@
 import { Form, Formik } from "formik";
 import { Eye, EyeClosed } from "lucide-react";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import * as Yup from "yup";
 import InputField from "../../components/FormComponents/InputField";
 import Button from "../../components/GeneralComponent/Button";
@@ -15,7 +15,7 @@ const ResetPassword = () => {
   const { mutate: resetPassword, isPending } = useResetPassword();
   // Password visibility toggle logic
   const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
-
+  const navigate = useNavigate();
   const initialValues = {
     new_password: "",
     new_password2: "",
@@ -32,7 +32,11 @@ const ResetPassword = () => {
       uid: uid,
       token: token,
     };
-    resetPassword(payload);
+    resetPassword(payload, {
+      onSuccess() {
+        navigate("/login");
+      },
+    });
   };
   return (
     <div className="px-4 max-w-sm mx-auto h-full flex flex-col justify-center">
