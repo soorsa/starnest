@@ -31,7 +31,7 @@ const PhoneNumberInput: React.FC<PhoneNumberInputProps> = ({
       {label && <div className="text-sm text-gray-500 mb-1">{label}</div>}
 
       <div
-        className={`w-full relative border bg-transparent rounded-lg py-2 px-4 flex items-center font-medium transition-all ${
+        className={`w-full relative border bg-transparent rounded-lg py-3 px-4 flex items-center font-medium transition-all ${
           hasError
             ? "border-red-500"
             : "border-gray-200 focus:border-blue-400 active:border-blue-400"

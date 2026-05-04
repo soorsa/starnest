@@ -25,6 +25,7 @@ import Notifications from "../pages/Dashboard/Notifications";
 import PlanDetailPage from "../pages/Dashboard/PlanDetailPage";
 import Plans from "../pages/Dashboard/Plans";
 import Profile from "../pages/Dashboard/Profile";
+import Referrals from "../pages/Dashboard/Referrals";
 import Transactions from "../pages/Dashboard/Transactions";
 import AboutUs from "../pages/Landing/About-Us";
 import ContactUs from "../pages/Landing/Contact-Us";
@@ -65,6 +66,7 @@ const AppRoutes = () => {
                 <Route path="my-plans" element={<MyPlans />} />
                 <Route path="my-plans/:id" element={<MyPlanDetail />} />
                 <Route path="transactions" element={<Transactions />} />
+                <Route path="referrals" element={<Referrals />} />
                 <Route path="notifications" element={<Notifications />} />
                 <Route path="profile" element={<Profile />} />
                 <Route path="more" element={<More />} />

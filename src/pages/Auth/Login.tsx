@@ -6,11 +6,8 @@ import * as Yup from "yup";
 import InputField from "../../components/FormComponents/InputField";
 import Button from "../../components/GeneralComponent/Button";
 import { useLogin } from "../../hooks/auth/useAuth";
-import { useModal } from "../../zustand/modal.state";
-import Register from "./Register";
 
 const Login = () => {
-  const { openModal } = useModal();
   const [showPassword, setShowPassword] = useState(false);
   const { mutate: login, isPending } = useLogin();
   // Password visibility toggle logic
@@ -88,11 +85,12 @@ const Login = () => {
           <p className="text-sm flex gap-1 items-center text-center justify-center">
             <>
               Are you new?{" "}
-              <Button
-                label="Create an Account"
+              <Link
+                to="/register"
                 className="!text-purple-900 ml-1 !bg-transparent font-medium !w-fit underline"
-                onClick={() => openModal(<Register />)}
-              />
+              >
+                Create an Account
+              </Link>
             </>
           </p>
         </Form>

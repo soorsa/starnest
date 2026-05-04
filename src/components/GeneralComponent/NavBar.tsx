@@ -1,18 +1,31 @@
-import { useEffect, useState } from "react";
-import { Menu, X } from "lucide-react"; // or use any icon you prefer
 import clsx from "clsx";
-import { IoCaretDown } from "react-icons/io5";
-import { Link, NavLink, useLocation } from "react-router-dom";
-import { GiChart } from "react-icons/gi";
-import { FaSchool } from "react-icons/fa";
+import {
+  ArrowUpRightFromCircle,
+  ChartArea,
+  ChevronDown,
+  LogOut,
+  Menu,
+  Settings,
+  Star,
+  Stars,
+  UserCircle,
+  X,
+} from "lucide-react"; // or use any icon you prefer
+import { useEffect, useState } from "react";
 import { BiCog, BiLogOut } from "react-icons/bi";
+import { Link, NavLink, useLocation } from "react-router-dom";
+import { useModal } from "../../zustand/modal.state";
+import { useUserState } from "../../zustand/user.state";
+import LogoutModal from "../AuthComponents/LogoutModal";
 import Button from "./Button";
+import LinkButton from "./LinkButton";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
-  const isLoggedIn = false;
+  const { isLoggedIn, user } = useUserState();
+  const modal = useModal();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -69,11 +82,17 @@ export default function Navbar() {
               {link.isPop && (
                 <div className="absolute top-full left-0 mt-5 w-[360px] p-4 bg-white shadow-2xl rounded-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 pointer-events-auto">
                   <div className="flex flex-col gap-4">
-                    <p className="font-bold text-lg text-center">
-                      Turn what tou know into passive income and help grow
-                      skills of millions of students in Africa.
+                    <p className="font-bold text-sm text-left text-gray-500">
+                      Trusted and Respected Platform with a mission to Grow
+                      African Families, Businesses and Economy From The Nest and
+                      Unlock Financial Freedom. Register now, start saving and
+                      turn your savings into passive income.
                     </p>
-                    <Button label="Get Started" />
+                    <LinkButton
+                      link="/register"
+                      rightIcon={<ArrowUpRightFromCircle />}
+                      label="Get Started"
+                    />
                   </div>
                 </div>
               )}
@@ -83,50 +102,65 @@ export default function Navbar() {
 
         {/* Desktop Buttons */}
         {isLoggedIn ? (
-          <Link
-            to="/dashboard"
-            className="hidden relative group md:flex gap-1 items-center border border-body-gray pr-5 rounded-l-3xl rounded-r-lg"
+          <div
+            // to="/dashboard"
+            className="hidden cursor-pointer relative group md:flex gap-1 items-center bg-black py-2 px-5 text-white rounded-xl"
           >
-            <img
-              src="/images/course.jpg"
-              className="h-7 w-7 rounded-full"
-              alt=""
-            />
-            <div className="text-xs">{"Jasmine"}</div>
-            <IoCaretDown className="ml-1" />
-            <div className="absolute top-full right-0 mt-5 w-[200px] p-4 bg-white shadow-2xl rounded-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 pointer-events-auto">
+            {user?.profile_picture ? (
+              <img
+                src={user.profile_picture}
+                className="h-7 w-7 rounded-full"
+                alt=""
+              />
+            ) : (
+              <UserCircle />
+            )}
+            <div className="text-xs">
+              {user?.first_name} {user?.last_name}
+            </div>
+            <ChevronDown className="ml-1 w-5 h-5" />
+            <div className="absolute top-full right-0 mt-5 w-[200px] p-4 bg-white text-black shadow-2xl rounded-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 pointer-events-auto">
               <div className=" flex flex-col divide divide-y-1 text-xs space-y-0 divide-gray-200">
                 <Link
                   to="/dashboard"
                   className="py-2 flex items-center gap-1 hover:bg-gray-100/50"
                 >
-                  <GiChart className="h-4 w-4 text-black" />
-                  Dashboard
+                  <ChartArea className="h-4 w-4 text-black" />
+                  Go to Dashboard
                 </Link>
                 <Link
-                  to="/dashboard/my-courses"
+                  to="/dashboard/my-plans"
                   className="py-2 flex items-center gap-1 hover:bg-gray-100/50"
                 >
-                  <FaSchool />
-                  My Courses
+                  <Stars className="h-4 w-4" />
+                  My Saving Plans
+                </Link>
+                <Link
+                  to="/dashboard/plans"
+                  className="py-2 flex items-center gap-1 hover:bg-gray-100/50 text-yellow-600"
+                >
+                  <Star className="h-4 w-4" />
+                  Join a Saving Plan
                 </Link>
                 <Link
                   to="/dashboard/profile"
                   className="py-2 flex items-center gap-1 hover:bg-gray-100/50"
                 >
                   <BiCog />
-                  Settings
+                  My Profile
                 </Link>
-                <Link
-                  to="/dashboard"
-                  className="py-2 flex items-center gap-1 hover:bg-gray-100/50"
+                <div
+                  onClick={() => {
+                    modal.openModal(<LogoutModal />);
+                  }}
+                  className="py-2 flex items-center gap-1 hover:bg-red-100/50 text-red-500"
                 >
                   <BiLogOut />
                   Logout
-                </Link>
+                </div>
               </div>
             </div>
-          </Link>
+          </div>
         ) : (
           <div className="hidden md:flex space-x-2">
             <button className="text-black text-sm px-4 py-2">
@@ -171,8 +205,7 @@ export default function Navbar() {
               <X size={24} />
             </button>
           </div>
-
-          <ul className="flex flex-col space-y-5">
+          <ul className="flex flex-col items-start space-y-5">
             {navLinks.map((link) => (
               <li key={link.href}>
                 <Link
@@ -189,27 +222,86 @@ export default function Navbar() {
               </li>
             ))}
           </ul>
+          {isLoggedIn ? (
+            <div className="mt-5">
+              <hr className="text-gray-200" />
 
-          {/* Socials and Buttons */}
-          <div className="mt-10 flex gap-4 text-gray-600 text-xl">
-            <i className="ri-facebook-fill"></i>
-            <i className="ri-twitter-fill"></i>
-            <i className="ri-tiktok-fill"></i>
-            <i className="ri-instagram-fill"></i>
-          </div>
-
-          <div className="mt-8 space-y-3">
-            <button className="w-full bg-black text-white py-2 rounded-full">
-              <Link to="/register" className="w-full">
-                Sign up
-              </Link>
-            </button>
-            <button className="w-full text-center text-black">
-              <Link to="/login" className="w-full ">
-                Login
-              </Link>
-            </button>
-          </div>
+              <div className="mt-5 space-y-3">
+                <div className="flex items-center gap-1">
+                  {user?.profile_picture ? (
+                    <img src={user.profile_picture} alt="" />
+                  ) : (
+                    <UserCircle />
+                  )}
+                  <div className="">
+                    {user?.first_name} {user?.last_name}
+                  </div>
+                </div>
+                <div className="ml-2 border-l-1 border-gray-200">
+                  <div className="flex items-center">
+                    <div className="h-[0.5px] w-[10px] text-black bg-gray-200"></div>
+                    <LinkButton
+                      label="Go to Dashboard"
+                      link="/dashboard"
+                      className="bg-transparent text-black! text-sm w-fit! px-2"
+                      icon={<ChartArea size={15} />}
+                    />
+                  </div>
+                  <div className="flex items-center">
+                    <div className="h-[0.5px] w-[10px] text-black bg-gray-200"></div>
+                    <LinkButton
+                      label="My Saving Plans"
+                      link="/dashboard/my-plans"
+                      className="bg-transparent text-black! text-sm w-fit! px-2"
+                      icon={<Stars size={15} />}
+                    />
+                  </div>
+                  <div className="flex items-center">
+                    <div className="h-[0.5px] w-[10px] text-black bg-gray-200"></div>
+                    <LinkButton
+                      label="Join a Saving Plans"
+                      link="/dashboard/plans"
+                      className="bg-transparent text-yellow-600! text-xs w-fit! px-2"
+                      icon={<Star size={15} />}
+                    />
+                  </div>
+                  <div className="flex items-center">
+                    <div className="h-[0.5px] w-[10px] text-black bg-gray-200"></div>
+                    <LinkButton
+                      label="My Profile"
+                      link="/dashboard/my-profile"
+                      className="bg-transparent text-black! text-sm w-fit! px-2"
+                      icon={<Settings size={15} />}
+                    />
+                  </div>
+                  <div className="flex items-center">
+                    <div className="h-[0.5px] w-[10px] text-black bg-gray-200"></div>
+                    <Button
+                      label="Logout"
+                      onClick={() => {
+                        modal.openModal(<LogoutModal />);
+                      }}
+                      className="bg-transparent text-red-500! text-xs w-fit! px-2"
+                      icon={<LogOut size={15} />}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="mt-20 space-y-3">
+              <button className="w-full bg-black text-white py-2 rounded-full">
+                <Link to="/register" className="w-full">
+                  Sign up
+                </Link>
+              </button>
+              <button className="w-full text-center text-black">
+                <Link to="/login" className="w-full ">
+                  Login
+                </Link>
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </header>

@@ -1,4 +1,4 @@
-import { AlertTriangle, CheckCircle2 } from "lucide-react";
+import { AlertTriangle, CheckCircle2, Info } from "lucide-react";
 import React from "react";
 interface Prop {
   status: "success" | "error" | "info";
@@ -16,9 +16,7 @@ const StatusModal: React.FC<Prop> = ({ status, title, msg }) => {
           {status === "error" && (
             <AlertTriangle size={60} className="text-red-500" />
           )}
-          {status === "info" && (
-            <CheckCircle2 size={60} className="text-blue-500" />
-          )}
+          {status === "info" && <Info size={60} className="text-blue-500" />}
           <div className="text-2xl font-bold">{title}</div>
           <div className="text-gray-700">{msg}</div>
         </div>

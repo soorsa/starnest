@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import FilterBar from "../../components/DashboardComponents/FilterBar";
 import Paginator from "../../components/DashboardComponents/Paginator";
+import PlanFilterBar from "../../components/DashboardComponents/PlanFilterBar";
 import PlanList from "../../components/DashboardComponents/PlanList";
 import { useGetPlans } from "../../hooks/querys/useSavingPlan";
 
@@ -18,7 +18,7 @@ const Plans: React.FC = () => {
           Find all plans or your most confortable savings plan here.
         </p>
         <div className="lg:w-[60%] mx-auto">
-          <FilterBar />
+          <PlanFilterBar params={filterParams} onSetParams={setFilterParams} />
         </div>
       </div>
       <PlanList

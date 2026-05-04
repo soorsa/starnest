@@ -6,19 +6,28 @@ import {
   LogOut,
   Mail,
   Phone,
-  Settings,
+  Share2,
   Trash2,
   UserCircle2,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import ChangePassword from "../../components/AuthComponents/ChangePassword";
 import LogoutModal from "../../components/AuthComponents/LogoutModal";
+import MakeReferralWithdrawal from "../../components/DashboardComponents/MakeReferralWithdrawal";
+import Button from "../../components/GeneralComponent/Button";
+import CopyText from "../../components/GeneralComponent/CopyText";
+import ReferralSkeleton from "../../components/SkeletonsComponents/ReferralSkeleton";
+import { useGetMyReferral } from "../../hooks/querys/useReferral";
+import { formatPrice } from "../../utils/formatter";
 import { useModal } from "../../zustand/modal.state";
 import { useUserState } from "../../zustand/user.state";
 
 const More = () => {
   const modal = useModal();
   const { user } = useUserState();
+  const { data, isLoading, isError } = useGetMyReferral();
+  const earnings = Number(data?.referral_earnings) || 0;
+  const canWithdraw = earnings > 999;
   const links = [
     {
       name: "Profile",
@@ -26,14 +35,14 @@ const More = () => {
       href: "/dashboard/profile",
     },
     {
-      name: "Settings",
-      icon: <Settings />,
-      href: "/dashboard/settings",
+      name: "Referral",
+      icon: <Share2 />,
+      href: "/dashboard/referrals",
     },
     {
       name: "Support",
       icon: <HelpCircle />,
-      href: "/dashboard/support",
+      href: "/support",
     },
   ];
   const actions = [
@@ -61,7 +70,7 @@ const More = () => {
   ];
   return (
     <div className="space-y-10">
-      <div className="">
+      <div className="grid md:grid-cols-2 gap-2">
         <div className="w-full bg-gradient-to-r from-yellow-800 to-yellow-600 rounded-2xl px-4 py-4 flex items-center">
           <div className="flex items-center gap-2">
             <img
@@ -87,6 +96,41 @@ const More = () => {
             </div>
           </div>
         </div>
+        {isLoading && isError ? (
+          <ReferralSkeleton />
+        ) : (
+          <div className="space-y-3 bg-gradient-to-r from-gray-800 to-gray-700 p-4 rounded-2xl text-white">
+            <div className="gap-2 grid md:grid-cols-2">
+              <div className="flex flex-col gap-4 justify-between text-sm">
+                <div className="text-gray-300">Referral Earnings</div>
+                <div className="text-2xl font-starnest-bold">
+                  {formatPrice(earnings)}
+                </div>
+                <Button
+                  label="Withdraw balance"
+                  className="text-xs"
+                  disabled={!canWithdraw}
+                  onClick={() => modal.openModal(<MakeReferralWithdrawal />)}
+                />
+              </div>
+
+              <div className="text-sm text-left gap-2 grid grid-cols-2 md:grid-cols-1">
+                <div className="rounded-lg md:text-right flex flex-col md:items-end">
+                  <div className="text-gray-300">Referral code:</div>
+                  <CopyText
+                    content={data?.referral_code || ""}
+                    truncate={false}
+                    className="text-white border w-fit! border-gray-300"
+                  />
+                </div>
+                <div className="rounded-lg md:text-right">
+                  <div className="text-gray-300">Total Referrals:</div>
+                  <div className="text-xs">{`${data?.total_referrals} people`}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
       <div className="space-y-1">
         {links.map((item, i) => (

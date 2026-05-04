@@ -32,7 +32,7 @@ const Index: React.FC = () => {
                 <LinkButton
                   link="/register"
                   rightIcon={<ArrowUpRightFromCircle size={20} />}
-                  label="Get Started"
+                  label="Start Earning"
                   className="max-w-[150px] md:max-w-[240px]"
                 />
                 <Button

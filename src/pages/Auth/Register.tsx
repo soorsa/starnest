@@ -1,15 +1,13 @@
 import { Form, Formik } from "formik";
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import * as Yup from "yup";
 import InputField from "../../components/FormComponents/InputField";
 import PhoneNumberInput from "../../components/FormComponents/PhoneNumberInput";
 import Button from "../../components/GeneralComponent/Button";
 import { useRegister } from "../../hooks/auth/useAuth";
-import { useModal } from "../../zustand/modal.state";
-import Login from "./Login";
 const Register = () => {
-  const { openModal } = useModal();
   const [showPassword, setShowPassword] = useState(false);
   const { mutate: register, isPending } = useRegister();
   // Password visibility toggle logic
@@ -21,6 +19,7 @@ const Register = () => {
     last_name: "",
     password: "",
     phone_number: "",
+    referral_code: "",
   };
   const validationSchema = Yup.object({
     // username: Yup.string().min(3).required("Required"),
@@ -41,6 +40,7 @@ const Register = () => {
       password: values.password,
       first_name: values.first_name,
       last_name: values.last_name,
+      referral_code: values.referral_code,
     };
     register(payload);
   };
@@ -82,6 +82,10 @@ const Register = () => {
               )
             }
           />
+          <InputField
+            name="referral_code"
+            placeholder="Referral code (optional)"
+          />
           <Button
             type="submit"
             isLoading={isPending}
@@ -94,11 +98,12 @@ const Register = () => {
           <p className="text-sm flex gap-1 items-center text-center justify-center">
             <>
               Already have an Account?{" "}
-              <Button
-                label="Log in"
+              <Link
+                to={`/login`}
                 className="!text-purple-900 ml-1 !bg-transparent font-medium !w-fit underline"
-                onClick={() => openModal(<Login />)}
-              />
+              >
+                login
+              </Link>
             </>
           </p>
         </Form>

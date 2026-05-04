@@ -9,6 +9,7 @@ interface Props {
   icon?: React.ReactNode;
   isloading: boolean;
   isError: boolean;
+  onclick?: () => void;
 }
 const InfoCard: React.FC<Props> = ({
   title,
@@ -19,12 +20,14 @@ const InfoCard: React.FC<Props> = ({
   isActive,
   isloading,
   isError,
+  onclick,
 }) => {
   if (isloading || isError) {
     return <CardSkeleton isActive={isActive} />;
   }
   return (
     <div
+      onClick={onclick}
       className={`flex flex-col bg-white hover:shadow-sm cursor-pointer rounded-3xl p-4 gap-1 sm:gap-4 text-left ${
         isActive && `bg-gray-700/50`
       }`}

@@ -1,11 +1,11 @@
-import { Mail, MapPin, PhoneCall } from "lucide-react";
+import { Mail, PhoneCall } from "lucide-react";
 import React from "react";
 const CONTACTS = [
-  {
-    name: "Address",
-    content: "451 Wall Street, UK, London",
-    icon: <MapPin size={20} />,
-  },
+  // {
+  //   name: "Address",
+  //   content: "451 Wall Street, UK, London",
+  //   icon: <MapPin size={20} />,
+  // },
   {
     name: "Phone",
     content: "+234 812 345 6789",
@@ -13,7 +13,7 @@ const CONTACTS = [
   },
   {
     name: "Email",
-    content: "451 Wall Street, UK, London",
+    content: "info@api.starnest.com.ng",
     icon: <Mail size={20} />,
   },
 ];
@@ -35,16 +35,16 @@ const LINKS = [
       { name: "Customer Care", href: "/" },
     ],
   },
-  {
-    header: "Office Locations",
-    links: [
-      { name: "Lagos state", href: "/" },
-      { name: "Abuja state", href: "/" },
-      { name: "Imo state", href: "/" },
-      { name: "Rivers state", href: "/" },
-      { name: "Kano state", href: "/" },
-    ],
-  },
+  // {
+  //   header: "Office Locations",
+  //   links: [
+  //     { name: "Lagos state", href: "/" },
+  //     { name: "Abuja state", href: "/" },
+  //     { name: "Imo state", href: "/" },
+  //     { name: "Rivers state", href: "/" },
+  //     { name: "Kano state", href: "/" },
+  //   ],
+  // },
 ];
 const Footer: React.FC = () => {
   const date = new Date();

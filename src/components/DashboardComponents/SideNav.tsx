@@ -5,6 +5,7 @@ import {
   Lock,
   LogOut,
   Settings,
+  Share2,
   Star,
   Stars,
   User,
@@ -22,6 +23,11 @@ const NAVITEMS = [
     label: "Transactions",
     path: "/dashboard/transactions",
     icon: <ChartBar />,
+  },
+  {
+    label: "Referrals",
+    path: "/dashboard/referrals",
+    icon: <Share2 />,
   },
 ];
 const SideNav = () => {

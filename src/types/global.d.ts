@@ -16,6 +16,12 @@ type Transaction = {
   status: TransactionStatus;
   user_savings: UserSavingPlan;
 };
+interface RefWithdrawal {
+  amount: string;
+  status: TransactionStatus;
+  created_at: string;
+  user: number;
+}
 
 interface GoalProgressCardProps {
   id: number;
@@ -89,6 +95,10 @@ interface User {
   account_name: string;
   account_number: string;
   bvn: string;
+
+  referral_code: string;
+  referred_by: User;
+  referral_earnings: number;
 }
 interface DetailedUser extends User {
   plans: UserSavingPlan[];
@@ -270,4 +280,9 @@ interface UserUpdatePayload {
 interface PasswordPayload {
   new_password: string;
   new_password2: string;
+}
+interface UserReferralStat {
+  referral_code: string;
+  referral_earnings: string;
+  total_referrals: number;
 }
