@@ -243,6 +243,7 @@ interface PlanFilterParams {
   duration?: number;
   created_at?: string;
   interest_rate?: number;
+  ordering?: string;
 }
 interface TransactionParams {
   type?: TransactionType;

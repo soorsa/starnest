@@ -8,7 +8,7 @@ const CONTACTS = [
   // },
   {
     name: "Phone",
-    content: "+234 812 345 6789",
+    content: "+2348122857589",
     icon: <PhoneCall size={20} />,
   },
   {
@@ -57,8 +57,8 @@ const Footer: React.FC = () => {
             <img src="/logo-h2.png" alt="" className="h-full w-[50%] " />
           </div>
           <p className="text-sm">
-            Challenge yourself with our mountain trekking expeditions. Suitable
-            for both beginners and experienced hikers.
+            Smart savings plans, consistent returns, and tools designed to help
+            you grow, manage, and secure your finances with ease.{" "}
           </p>
           <div className="space-y-2 text-gray-700">
             {CONTACTS.map((info) => (

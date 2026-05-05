@@ -21,7 +21,10 @@ const PlanCard: React.FC<Prop> = ({ plan }) => {
           className="w-10 h-10 rounded-lg object-cover bg-amber-400"
         />
         <div className="flex-1 text-left">
-          <div className="font-starnest-mid">{plan.name}</div>
+          <div className="font-starnest-mid uppercase line-clamp-1">
+            {plan.name}{" "}
+            <span className="lowercase text-gray-600"> savings plan</span>
+          </div>
           <div className="text-sm flex items-center divide-x divide-gray-200">
             <PiggyBank className="text-green-500 pr-1" />
             <div className=" pl-1">
@@ -89,7 +92,10 @@ export const ResponsivePlanCard: React.FC<Prop> = ({ plan }) => {
             className="md:hidden w-10 h-10 rounded-lg object-cover bg-amber-400"
           />
           <div className="">
-            <p className="font-starnest-mid text-left uppercase">{plan.name}</p>
+            <p className="font-starnest-mid text-left uppercase line-clamp-1">
+              {plan.name}{" "}
+              <span className="lowercase text-gray-600">savings plan</span>
+            </p>
 
             <div className="text-sm flex items-center divide-x divide-gray-200">
               <PiggyBank className="text-green-500 pr-1" />

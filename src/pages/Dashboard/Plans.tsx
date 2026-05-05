@@ -7,6 +7,7 @@ import { useGetPlans } from "../../hooks/querys/useSavingPlan";
 const Plans: React.FC = () => {
   const [filterParams, setFilterParams] = useState<PlanFilterParams>({
     page: 1,
+    ordering: "-created_at",
   });
 
   const { data, isLoading, isError } = useGetPlans(filterParams);

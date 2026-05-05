@@ -34,9 +34,9 @@ const PlanDetailPage = () => {
               <div className="flex items-center gap-3 mb-2">
                 {/* Plan icon / image – keep consistent with list view */}
                 <img
-                  src="/images/plans/kalistik.jpg"
-                  alt="Kalistik"
-                  className="w-16 h-16 rounded-full object-cover border-2 border-yellow-400"
+                  src="/happy-family.png"
+                  alt="happy-family"
+                  className="w-16 h-16 rounded-full object-cover border-2 border-yellow-400 bg-gradient-to-tr from-gray-800 to-gray-200"
                 />
                 <h1 className="text-xl lg:text-3xl font-starnest-bold text-gray-900">
                   {data?.name}
@@ -71,7 +71,7 @@ const PlanDetailPage = () => {
                 onClick={openModal}
                 className="cursor-pointer block md:hidden bg-gradient-to-br hover:bg-gradient-to-bl group from-sky-600 to-sky-900 hover:text-white! rounded-xl px-5 py-3 shadow-sm border border-gray-200"
               >
-                <p className="text-sm text-gray-200">Join Plan with</p>
+                <p className="text-sm text-gray-200">Click to Join Plan</p>
                 <div className="flex items-center gap-1">
                   <span className="text-2xl font-starnest-bold text-white">
                     {formatPrice(data?.amount_per_cycle || "")}

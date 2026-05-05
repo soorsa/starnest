@@ -15,13 +15,13 @@ const ContactSection: React.FC = () => {
       </div>
       <div className="space-y-2">
         <div className="grid grid-cols-2 md:flex gap-4">
-          <a href="tel:+2347012345678">
+          <a href="tel:+2348122857589">
             <button className="bg-blue-600 rounded-lg px-7 py-2 text-white w-full min-w-[100px] flex items-center justify-center gap-2">
               <PhoneCall size={20} />
               Call Us
             </button>
           </a>
-          <a href="https://wa.me/2347012345678">
+          <a href="https://wa.me/2348122857589">
             <button className="bg-green-600 text-white px-7 py-2 rounded-lg w-full min-w-[100px] flex items-center justify-center gap-2">
               <IoLogoWhatsapp size={20} />
               Chat Us
