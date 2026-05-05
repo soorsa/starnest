@@ -229,7 +229,9 @@ const JoinPlanModal: React.FC<Prop> = ({ plan }) => {
                         </span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-gray-600">Monthly amount</span>
+                        <span className="text-gray-600">
+                          {values.payment_type} amount
+                        </span>
                         <span className="font-medium">
                           {formatPrice(
                             Number(plan.amount_per_cycle) * Number(values.hands)

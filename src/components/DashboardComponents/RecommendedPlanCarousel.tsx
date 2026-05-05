@@ -5,7 +5,7 @@ import { useGetPlans } from "../../hooks/querys/useSavingPlan";
 import { ResponsivePlanCard } from "./PlanCard";
 
 const RecomendedPlanCarousel: React.FC = () => {
-  const { data } = useGetPlans({ page: 1 });
+  const { data } = useGetPlans({ page: 1, ordering: "-created_at" });
   const [emblaRef, embla] = useEmblaCarousel({
     align: "start",
     loop: false,

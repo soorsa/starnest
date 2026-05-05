@@ -7,13 +7,14 @@ import {
   Mail,
   Phone,
   Share2,
-  Trash2,
+  Stars,
   UserCircle2,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import ChangePassword from "../../components/AuthComponents/ChangePassword";
 import LogoutModal from "../../components/AuthComponents/LogoutModal";
 import MakeReferralWithdrawal from "../../components/DashboardComponents/MakeReferralWithdrawal";
+import Support from "../../components/DashboardComponents/Support";
 import Button from "../../components/GeneralComponent/Button";
 import CopyText from "../../components/GeneralComponent/CopyText";
 import ReferralSkeleton from "../../components/SkeletonsComponents/ReferralSkeleton";
@@ -35,14 +36,14 @@ const More = () => {
       href: "/dashboard/profile",
     },
     {
+      name: "My Plans",
+      icon: <Stars />,
+      href: "/dashboard/my-plans",
+    },
+    {
       name: "Referral",
       icon: <Share2 />,
       href: "/dashboard/referrals",
-    },
-    {
-      name: "Support",
-      icon: <HelpCircle />,
-      href: "/support",
     },
   ];
   const actions = [
@@ -61,10 +62,10 @@ const More = () => {
       },
     },
     {
-      name: "Delete Account",
-      icon: <Trash2 />,
+      name: "Support",
+      icon: <HelpCircle />,
       onClick: () => {
-        modal.openModal(<LogoutModal />);
+        modal.openModal(<Support />);
       },
     },
   ];
