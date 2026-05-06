@@ -17,7 +17,14 @@ const login = async (payload: LoginPayload): Promise<LoginResponse> => {
   return res.data;
 };
 const register = async (payload: RegisterPayload) => {
-  const res = await api.post(`/auth/register/`, payload);
+  const cleanedPayload: Partial<RegisterPayload> = {};
+
+  Object.entries(payload).forEach(([key, value]) => {
+    if (value !== undefined && value !== null && value !== "") {
+      cleanedPayload[key as keyof RegisterPayload] = value;
+    }
+  });
+  const res = await api.post(`/auth/register/`, cleanedPayload);
   return res.data;
 };
 export const logout = async () => {
