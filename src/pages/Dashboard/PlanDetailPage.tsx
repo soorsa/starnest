@@ -115,7 +115,7 @@ const PlanDetailPage = () => {
           {/* Features / Benefits */}
           <div className="bg-white text-left rounded-2xl p-6 border border-gray-100">
             <h2 className="text-xl font-starnest-mid mb-4">
-              Why {data?.name}?
+              Why join {data?.name} savings plan?
             </h2>
             <ul className="space-y-2 text-sm">
               {data?.benefits.map((benefit, i) => (

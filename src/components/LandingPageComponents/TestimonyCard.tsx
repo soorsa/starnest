@@ -8,7 +8,11 @@ const TestimonyCard: React.FC<Props> = ({ testimonial }) => {
     <div className="bg-white p-4 border border-gray-200 rounded-lg text-left min-w-[300px] w-xs space-y-2">
       <div className="flex gap-2 items-center">
         <div className="rounded-full overflow-hidden h-14 w-14">
-          <img src={testimonial.image} alt="" className="w-full h-full" />
+          <img
+            src={testimonial.image}
+            alt=""
+            className="w-full h-full object-cover"
+          />
         </div>
         <div className="">
           <div className="text-sm">{testimonial.name}</div>

@@ -94,41 +94,41 @@ const UpdateProfile: React.FC<Prop> = ({ user, isError, isLoading }) => {
                   width={200}
                 />
                 <div className="grid grid-cols-2 text-left gap-2">
-                  <div className="">
-                    <label htmlFor="">First name</label>
-                    <InputField name="first_name" placeholder="First name" />
-                  </div>
-                  <div className="">
-                    <label htmlFor="">Last name</label>
-                    <InputField name="last_name" placeholder="Last name" />
-                  </div>
+                  <InputField
+                    name="first_name"
+                    label="First name"
+                    placeholder="First name"
+                  />
+                  <InputField
+                    name="last_name"
+                    label="Surname"
+                    placeholder="Last name"
+                  />
                 </div>
                 <div className="grid sm:grid-cols-2 text-left gap-2">
-                  <div className="">
-                    <label htmlFor="">Phone No.</label>
-                    <InputField
-                      name="phone_number"
-                      type="tel"
-                      placeholder="Phone number"
-                    />
-                  </div>
-                  <div className="">
-                    <label htmlFor="">Email</label>
-                    <InputField name="email" placeholder="Email Address" />
-                  </div>
+                  <InputField
+                    name="phone_number"
+                    type="tel"
+                    label="Phone No."
+                    placeholder="Phone number"
+                  />
+                  <InputField
+                    name="email"
+                    label="Email"
+                    placeholder="Email Address"
+                  />
                 </div>
                 <div className="grid grid-cols-2 text-left gap-2">
-                  <div className="">
-                    <label htmlFor="">Date of birth</label>
-                    <DatePickerInput
-                      name="date_of_birth"
-                      placeholder="Date of birth"
-                    />
-                  </div>
-                  <div className="">
-                    <label htmlFor="">National ID</label>
-                    <InputField name="first_name" placeholder="First name" />
-                  </div>
+                  <DatePickerInput
+                    label="Date of Birth"
+                    name="date_of_birth"
+                    placeholder="Date of birth"
+                  />
+                  <InputField
+                    label="National ID (NIN)"
+                    name="nin"
+                    placeholder="NIN number"
+                  />
                 </div>
               </div>
               <div className="space-y-4 text-sm p-4 bg-white rounded-2xl">
@@ -136,33 +136,28 @@ const UpdateProfile: React.FC<Prop> = ({ user, isError, isLoading }) => {
                   Location Info
                 </div>
                 <div className="grid grid-cols-2 text-left gap-2">
-                  <div className="">
-                    <label htmlFor="">State</label>
-                    <InputField
-                      name="state"
-                      placeholder="E.g Lagos, Abuja etc"
-                    />
-                  </div>
-                  <div className="">
-                    <label htmlFor="">City</label>
-                    <InputField
-                      name="city"
-                      placeholder="E.g. Ikeja, Alimosho etc"
-                    />
-                  </div>
+                  <InputField
+                    label="State"
+                    name="state"
+                    placeholder="E.g Lagos, Abuja etc"
+                  />
+                  <InputField
+                    label="City"
+                    name="city"
+                    placeholder="E.g. Ikeja, Alimosho etc"
+                  />
                 </div>
                 <div className="grid sm:grid-cols-2 text-left gap-2">
-                  <div className="">
-                    <label htmlFor="">Country</label>
-                    <InputField name="country" placeholder="E.g Nigeria" />
-                  </div>
-                  <div className="">
-                    <label htmlFor="">Street Address</label>
-                    <InputField
-                      name="address"
-                      placeholder="Enter Street address"
-                    />
-                  </div>
+                  <InputField
+                    label="Country"
+                    name="country"
+                    placeholder="E.g Nigeria"
+                  />
+                  <InputField
+                    label="Street Address"
+                    name="address"
+                    placeholder="Enter Street address"
+                  />
                 </div>
               </div>
               <div className="space-y-4 text-sm p-4 bg-white rounded-2xl">
@@ -170,30 +165,28 @@ const UpdateProfile: React.FC<Prop> = ({ user, isError, isLoading }) => {
                   Bank Info
                 </div>
                 <div className="grid sm:grid-cols-2 text-left gap-2">
-                  <div className="">
-                    <label htmlFor="">Account name</label>
-                    <InputField
-                      name="account_name"
-                      placeholder="Enter Account name"
-                    />
-                  </div>
-                  <div className="">
-                    <label htmlFor="">Bank</label>
-                    <InputField name="bank" placeholder="Bank e.g. GT Bank" />
-                  </div>
+                  <InputField
+                    label="Acount name"
+                    name="account_name"
+                    placeholder="Enter Account name"
+                  />
+                  <InputField
+                    name="bank"
+                    label="Bank"
+                    placeholder="Bank e.g. GT Bank"
+                  />
                 </div>
                 <div className="grid sm:grid-cols-2 text-left gap-2">
-                  <div className="">
-                    <label htmlFor="">Account Number</label>
-                    <InputField
-                      name="account_number"
-                      placeholder="Enter Account Number"
-                    />
-                  </div>
-                  <div className="">
-                    <label htmlFor="">Bank verification Number</label>
-                    <InputField name="bvn" placeholder="Enter BVN" />
-                  </div>
+                  <InputField
+                    label="Account number"
+                    name="account_number"
+                    placeholder="Enter Account Number"
+                  />
+                  <InputField
+                    label="Bank Verification Number (BVN)"
+                    name="bvn"
+                    placeholder="Enter BVN"
+                  />
                 </div>
               </div>
             </Form>
