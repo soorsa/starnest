@@ -84,7 +84,7 @@ const JoinPlanModal: React.FC<Prop> = ({ plan }) => {
         });
       },
       onClose() {
-        toast.error("Paystack closed");
+        toast.error(`Payment of ${formatPrice(total_amount_payable)} canceled`);
       },
     });
   };
