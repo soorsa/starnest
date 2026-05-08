@@ -36,16 +36,22 @@ const ProfileSummary: React.FC<Prop> = ({ data, isError, isLoading }) => {
           <div className="grid grid-cols-3 text-sm gap-y-2 py-2">
             <div className="text-left text-gray-600">Age</div>
             <div className="col-span-2 text-right">
-              {calculateAge(data?.date_of_birth || "")} yrs
+              {data?.date_of_birth
+                ? `${calculateAge(data?.date_of_birth || "")} yrs`
+                : "..."}
             </div>
             <div className="text-left text-gray-600">City</div>
-            <div className="col-span-2 text-right">{data?.state}</div>
+            <div className="col-span-2 text-right">{data?.state || "..."}</div>
             <div className="text-left text-gray-600">Country</div>
-            <div className="col-span-2 text-right">{data?.country}</div>
+            <div className="col-span-2 text-right">
+              {data?.country || "..."}
+            </div>
             <div className="text-left text-gray-600">Phone</div>
-            <div className="col-span-2 text-right">{data?.phone_number}</div>
+            <div className="col-span-2 text-right">
+              {data?.phone_number || "..."}
+            </div>
             <div className="text-left text-gray-600">Email</div>
-            <div className="col-span-2 text-right">{data?.email}</div>
+            <div className="col-span-2 text-right">{data?.email || "..."}</div>
           </div>
           <div className="grid grid-cols-3 text-sm gap-y-2 py-2">
             <div className="text-left text-gray-600">Balance</div>

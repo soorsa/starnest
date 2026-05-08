@@ -1,17 +1,17 @@
 export const testimonials = [
   {
-    name: "Chinedu Okafor",
+    name: "Rabui Razaq",
     role: "Entrepreneur",
     description:
       "Starnest helped me stay consistent with my savings. For the first time, I was able to complete a financial goal without stress.",
-    image: "https://randomuser.me/api/portraits/men/32.jpg",
+    image: "/testimonials/l30k1.jpg",
   },
   {
     name: "Aisha Bello",
     role: "Fashion Designer",
     description:
       "I love how simple and structured everything is. I just pick a plan, save consistently, and watch my money grow.",
-    image: "https://randomuser.me/api/portraits/women/44.jpg",
+    image: "/testimonials/aisha.jpg",
   },
   {
     name: "Emeka Nwosu",
@@ -25,20 +25,20 @@ export const testimonials = [
     role: "Teacher",
     description:
       "Starnest made saving feel easy. The reminders and structure really helped me stay on track.",
-    image: "https://randomuser.me/api/portraits/women/68.jpg",
+    image: "/testimonials/teacher.jpg",
   },
   {
-    name: "David Ogunleye",
+    name: "Seun Ogunleye",
     role: "Software Developer",
     description:
       "I like the transparency and how I can track everything. It gives me confidence that my money is safe and growing.",
-    image: "https://randomuser.me/api/portraits/men/75.jpg",
+    image: "/testimonials/seun.jpg",
   },
   {
     name: "Blessing Eze",
     role: "Student",
     description:
       "Even as a student, I’ve been able to save small amounts consistently. It really adds up over time.",
-    image: "https://randomuser.me/api/portraits/women/12.jpg",
+    image: "/testimonials/blessing.jpg",
   },
 ];
