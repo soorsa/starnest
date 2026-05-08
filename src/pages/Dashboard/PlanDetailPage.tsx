@@ -38,8 +38,9 @@ const PlanDetailPage = () => {
                   alt="happy-family"
                   className="w-16 h-16 rounded-full object-cover border-2 border-yellow-400 bg-gradient-to-tr from-gray-800 to-gray-200"
                 />
-                <h1 className="text-xl lg:text-3xl font-starnest-bold text-gray-900">
-                  {data?.name}
+                <h1 className="text-xl lg:text-3xl font-starnest-bold text-gray-900 uppercase">
+                  {data?.name}{" "}
+                  <span className="lowercase text-gray-600">savings plan</span>
                 </h1>
               </div>
               <p className="text-sm text-gray-600">{data?.description}</p>
@@ -114,8 +115,12 @@ const PlanDetailPage = () => {
           </div>
           {/* Features / Benefits */}
           <div className="bg-white text-left rounded-2xl p-6 border border-gray-100">
-            <h2 className="text-xl font-starnest-mid mb-4">
-              Why join {data?.name} savings plan?
+            <h2 className="text-xl font-starnest-mid mb-4 text-gray-600">
+              Why join{" "}
+              <span className="uppercase text-black font-starnest-bold">
+                {data?.name}
+              </span>{" "}
+              savings plan?
             </h2>
             <ul className="space-y-2 text-sm">
               {data?.benefits.map((benefit, i) => (
