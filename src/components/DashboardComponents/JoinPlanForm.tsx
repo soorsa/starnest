@@ -132,7 +132,8 @@ const JoinPlanModal: React.FC<Prop> = ({ plan }) => {
                 <div className="space-y-5 w-full text-left">
                   <div className="">
                     <h2 className="text-2xl font-starnest-bold">
-                      Join {plan.name}
+                      Join {plan.name}{" "}
+                      <span className="text-gray-600">savings plan</span>
                     </h2>
                     <hr className="w-full text-gray-300" />
                   </div>
@@ -195,11 +196,11 @@ const JoinPlanModal: React.FC<Prop> = ({ plan }) => {
                     <Info />
                     <div className="">
                       You'll be recieving{" "}
-                      <b className="font-starnest-bold underline ">
+                      <span className="font-starnest-bold">
                         {formatPrice(
                           plan.expected_total_payment * Number(values.hands)
                         )}{" "}
-                      </b>
+                      </span>
                       after completion of {plan.duration} months.
                     </div>
                   </div>
