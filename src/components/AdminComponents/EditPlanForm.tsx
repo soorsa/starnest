@@ -2,6 +2,7 @@ import { Form, Formik } from "formik";
 import type React from "react";
 import * as Yup from "yup";
 import { useEditPlan } from "../../hooks/mutations/useSavingPlan";
+import { formatPrice } from "../../utils/formatter";
 import { useModal } from "../../zustand/modal.state";
 import InputField from "../FormComponents/InputField";
 import ListInputField from "../FormComponents/ListInput";
@@ -71,7 +72,11 @@ const EditPlan: React.FC<Prop> = ({ plan }) => {
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
-        {({ isValid }) => {
+        {({ isValid, values }) => {
+          const amount_per_cycle = Number(values.amount_per_cycle);
+          const rate = Number(values.interest_rate) / 100;
+          const reward = amount_per_cycle + amount_per_cycle * rate;
+
           return (
             <Form className="space-y-5">
               <div className="space-y-3">
@@ -81,13 +86,20 @@ const EditPlan: React.FC<Prop> = ({ plan }) => {
                   label="Title"
                   placeholder="Plan name"
                 />
+                <InputField
+                  theme="dark"
+                  name="video_link"
+                  label="Video link"
+                  placeholder="Link"
+                />
                 <div className="grid grid-cols-2 gap-2">
-                  <InputField
-                    theme="dark"
-                    name="video_link"
-                    label="Video link"
-                    placeholder="Link"
-                  />
+                  <div className="text-left">
+                    <div className="text-xs text-gray-500">Reward</div>
+                    <div className="p-3 text-sm rounded-lg border border-gray-200">
+                      {formatPrice(reward)}
+                    </div>
+                  </div>
+
                   <InputField
                     theme="dark"
                     name="amount_per_cycle"
