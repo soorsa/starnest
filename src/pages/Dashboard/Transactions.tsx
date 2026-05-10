@@ -90,7 +90,7 @@ const Transactions: React.FC = () => {
             />
             <InfoCard
               title="Total amount withdrawn"
-              value={formatPrice(65200)}
+              value={"..."}
               icon={<CircleDollarSign />}
               isError={userdataError}
               isloading={userdataLoading}

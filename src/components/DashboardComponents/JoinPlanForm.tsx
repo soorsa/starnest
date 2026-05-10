@@ -52,11 +52,13 @@ const JoinPlanModal: React.FC<Prop> = ({ plan }) => {
   };
 
   const handleSubmit = (values: typeof initialValues) => {
-    const amount =
+    const plan_amount =
       values.payment_type === "monthly"
         ? Number(values.number_of_months) * Number(plan.amount_per_cycle)
         : Number(plan.amount_per_cycle);
-    const total_amount_payable = amount * Number(values.hands) + 2500;
+    const hands_amount = 2500 * values.hands;
+    const plan_amount_by_hands = plan_amount * Number(values.hands);
+    const total_amount_to_be_paid = plan_amount_by_hands + hands_amount;
     const payload: JoinPlanPayload = {
       plan_id: Number(plan.id),
       hands: Number(values.hands),
@@ -67,7 +69,7 @@ const JoinPlanModal: React.FC<Prop> = ({ plan }) => {
     };
     paystack({
       email: user?.email || "",
-      amount: total_amount_payable,
+      amount: total_amount_to_be_paid,
       reference: "",
       onSuccess() {
         joinPlan(payload, {
@@ -84,7 +86,9 @@ const JoinPlanModal: React.FC<Prop> = ({ plan }) => {
         });
       },
       onClose() {
-        toast.error(`Payment of ${formatPrice(total_amount_payable)} canceled`);
+        toast.error(
+          `Payment of ${formatPrice(total_amount_to_be_paid)} canceled`
+        );
       },
     });
   };
@@ -118,7 +122,9 @@ const JoinPlanModal: React.FC<Prop> = ({ plan }) => {
                 ? Number(values.number_of_months) *
                   Number(plan.amount_per_cycle)
                 : Number(plan.amount_per_cycle);
-            const total_amount_payable = amount + 2500;
+            const hands_amount = 2500 * values.hands;
+            const plan_amount_by_hands = amount * values.hands;
+            const total_amount_payable = plan_amount_by_hands + hands_amount;
             const isOntime =
               values.number_of_months === String(plan.duration) ||
               values.payment_type === "one-time";
@@ -212,7 +218,7 @@ const JoinPlanModal: React.FC<Prop> = ({ plan }) => {
                       <div className="flex justify-between">
                         <span className="text-gray-600">Activation fee</span>
                         <span className="font-medium">
-                          {formatPrice(2500 * Number(values.hands))}
+                          {formatPrice(hands_amount)}
                         </span>
                       </div>
                       <div className="flex justify-between">
@@ -234,39 +240,34 @@ const JoinPlanModal: React.FC<Prop> = ({ plan }) => {
                           {values.payment_type} amount
                         </span>
                         <span className="font-medium">
-                          {formatPrice(
-                            Number(plan.amount_per_cycle) * Number(values.hands)
-                          )}
+                          {formatPrice(plan_amount_by_hands)}
                         </span>
                       </div>
                       <div className="flex justify-between pt-2 border-t border-gray-200">
                         <span className="text-gray-600">Subtotal</span>
                         <span className="font-medium">
-                          {formatPrice(amount * Number(values.hands))}
+                          {formatPrice(plan_amount_by_hands)}
                         </span>
                       </div>
                       <div className="flex justify-between text-base font-semibold">
                         <span>Total payable</span>
                         <span className="text-green-600">
-                          {formatPrice(
-                            total_amount_payable * Number(values.hands)
-                          )}
+                          {formatPrice(total_amount_payable)}
                         </span>
                       </div>
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-4 w-full gap-2 mt-6">
-                    <Button
-                      label=""
-                      icon={<X />}
-                      className="bg-red-700 hover:bg-red-800"
-                      type="button"
+                  <div className="flex w-full gap-2 items-center mt-6">
+                    <div
+                      className="p-2 rounded-xl border text-red-500 hover:bg-red-500 hover:text-white transition cursor-pointer"
                       onClick={modal.closeModal}
-                    />
+                    >
+                      <X />
+                    </div>
                     <Button
-                      label="Proceed"
-                      className="col-span-3"
+                      label="Proceed to pay"
+                      className="col-span-2"
                       type="submit"
                       loadingLabel="Processing..."
                       disabled={!isValid || isPending}
