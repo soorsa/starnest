@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { useJoinPlan } from "../../hooks/mutations/useSavingPlan";
+import { useFlutterwavePayment } from "../../hooks/payments/useFlutterwave";
 import { usePaystackPayment } from "../../hooks/payments/usePaystack";
 import { formatPrice } from "../../utils/formatter";
 import { useModal } from "../../zustand/modal.state";
@@ -22,12 +23,17 @@ const JoinPlanModal: React.FC<Prop> = ({ plan }) => {
   const { mutate: joinPlan, isPending } = useJoinPlan();
   const { user } = useUserState();
   const paystack = usePaystackPayment();
+  const flutterwave = useFlutterwavePayment();
   const navigate = useNavigate();
   const modal = useModal();
   const paymentTypeOption = [
     { label: "Pay in full", value: "one-time" },
     { label: "Monthly", value: "monthly" },
   ];
+  // const paymentMethod = [
+  //   { label: "Flutterwave", value: "flutterwave" },
+  //   { label: "Paystack", value: "paystack" },
+  // ];
 
   // Generate months options dynamically from plan duration
   const monthsOption = Array.from({ length: plan.duration }, (_, i) => ({
@@ -38,6 +44,7 @@ const JoinPlanModal: React.FC<Prop> = ({ plan }) => {
   const validationSchema = Yup.object().shape({
     payment_type: Yup.string().required("Payment type is required"),
     hands: Yup.number().min(1).required("required"),
+    payment_method: Yup.string().required("required"),
     number_of_months: Yup.string().when("payment_type", {
       is: "monthly",
       then: (schema) => schema.required("Number of months is required"),
@@ -49,6 +56,7 @@ const JoinPlanModal: React.FC<Prop> = ({ plan }) => {
     payment_type: plan.type === "one time" ? "one-time" : "",
     hands: 1,
     number_of_months: "1",
+    payment_method: "paystack",
   };
 
   const handleSubmit = (values: typeof initialValues) => {
@@ -67,30 +75,64 @@ const JoinPlanModal: React.FC<Prop> = ({ plan }) => {
           ? plan.duration
           : Number(values.number_of_months),
     };
-    paystack({
-      email: user?.email || "",
-      amount: total_amount_to_be_paid,
-      reference: "",
-      onSuccess() {
-        joinPlan(payload, {
-          onSuccess(data) {
-            modal.openModal(
-              <StatusModal
-                title="Congrats!"
-                msg={data.message}
-                status="success"
-              />
-            );
-            navigate(`/dashboard/my-plans/${data.plan_id}`);
-          },
-        });
-      },
-      onClose() {
-        toast.error(
-          `Payment of ${formatPrice(total_amount_to_be_paid)} canceled`
-        );
-      },
-    });
+    const tx_ref = `tx_${Date.now().toString()}`;
+    if (values.payment_method === "paystack") {
+      paystack({
+        email: user?.email || "",
+        amount: total_amount_to_be_paid,
+        reference: tx_ref,
+        firstName: user?.first_name,
+        lastName: user?.first_name,
+        phoneNumber: user?.phone_number || "",
+        onSuccess() {
+          joinPlan(payload, {
+            onSuccess(data) {
+              modal.openModal(
+                <StatusModal
+                  title="Congrats!"
+                  msg={data.message}
+                  status="success"
+                />
+              );
+              navigate(`/dashboard/my-plans/${data.plan_id}`);
+            },
+          });
+        },
+        onClose() {
+          toast.error(
+            `Payment of ${formatPrice(total_amount_to_be_paid)} canceled`
+          );
+        },
+      });
+    }
+    if (values.payment_method === "flutterwave") {
+      flutterwave({
+        email: user?.email || "",
+        amount: total_amount_to_be_paid,
+        reference: tx_ref,
+        name: `${user?.first_name} ${user?.last_name}`,
+        phone_number: `${user?.phone_number}`,
+        onSuccess() {
+          joinPlan(payload, {
+            onSuccess(data) {
+              modal.openModal(
+                <StatusModal
+                  title="Congrats!"
+                  msg={data.message}
+                  status="success"
+                />
+              );
+              navigate(`/dashboard/my-plans/${data.plan_id}`);
+            },
+          });
+        },
+        onClose() {
+          toast.error(
+            `Payment of ${formatPrice(total_amount_to_be_paid)} canceled`
+          );
+        },
+      });
+    }
   };
   const Watcher = ({
     type,
@@ -244,10 +286,10 @@ const JoinPlanModal: React.FC<Prop> = ({ plan }) => {
                         </span>
                       </div>
                       <div className="flex justify-between pt-2 border-t border-gray-200">
-                        <span className="text-gray-600">Subtotal</span>
+                        {/* <span className="text-gray-600">Subtotal</span>
                         <span className="font-medium">
                           {formatPrice(plan_amount_by_hands)}
-                        </span>
+                        </span> */}
                       </div>
                       <div className="flex justify-between text-base font-semibold">
                         <span>Total payable</span>
@@ -257,6 +299,15 @@ const JoinPlanModal: React.FC<Prop> = ({ plan }) => {
                       </div>
                     </div>
                   </div>
+                  {/* <div className="mt-4">
+                    <RadioGroup
+                      label="Select Payment method"
+                      options={paymentMethod}
+                      name="payment_method"
+                      orientation="horizontal"
+                      optionClassName="min-w-[calc(50%-8px)]"
+                    />
+                  </div> */}
 
                   <div className="flex w-full gap-2 items-center mt-6">
                     <div

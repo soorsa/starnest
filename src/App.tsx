@@ -6,10 +6,15 @@ import AppRoutes from "./routes/app.routes";
 
 function App() {
   useEffect(() => {
-    const script = document.createElement("script");
-    script.src = "https://js.paystack.co/v1/inline.js";
-    script.async = true;
-    document.body.appendChild(script);
+    // const script = document.createElement("script");
+    // script.src = "https://js.paystack.co/v1/inline.js";
+    // script.async = true;
+    // document.body.appendChild(script);
+
+    const flutterScript = document.createElement("script");
+    flutterScript.src = "https://checkout.flutterwave.com/v3.js";
+    flutterScript.async = true;
+    document.body.appendChild(flutterScript);
   }, []);
 
   return (
