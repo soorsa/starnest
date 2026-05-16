@@ -30,6 +30,7 @@ import Transactions from "../pages/Dashboard/Transactions";
 import AboutUs from "../pages/Landing/About-Us";
 import ContactUs from "../pages/Landing/Contact-Us";
 import Index from "../pages/Landing/Index";
+import LandingPage from "../pages/Landing/LandingPage";
 import * as Layout from "../pages/Landing/Layout";
 import PageNotFound from "../pages/PageNotFound";
 import AdminRoutes from "./admin.routes";
@@ -52,7 +53,8 @@ const AppRoutes = () => {
           <Routes>
             <Route path="/" element={<GeneralRoutes />}>
               <Route element={<Layout.default />}>
-                <Route index element={<Index />} />
+                <Route index element={<LandingPage />} />
+                <Route path="/index" element={<Index />} />
                 <Route path="/about" element={<AboutUs />} />
                 <Route path="/contact" element={<ContactUs />} />
               </Route>

@@ -104,7 +104,10 @@ const PlanDetailPage = () => {
           <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden h-[360px] p-1">
             <div className="relative w-full h-full rounded-2xl overflow-hidden">
               <ReactPlayer
-                src="https://youtu.be/G_dvNZgtJoM"
+                // src="https://youtu.be/G_dvNZgtJoM"
+                src={
+                  data?.video_link || "https://youtube.com/shorts/MnJWAXGwYiM"
+                }
                 title="How to register for saving plan"
                 width="100%"
                 height="100%"
