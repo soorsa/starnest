@@ -53,8 +53,8 @@ const AppRoutes = () => {
           <Routes>
             <Route path="/" element={<GeneralRoutes />}>
               <Route element={<Layout.default />}>
-                <Route index element={<LandingPage />} />
-                <Route path="/index" element={<Index />} />
+                <Route index element={<Index />} />
+                <Route path="index" element={<LandingPage />} />
                 <Route path="/about" element={<AboutUs />} />
                 <Route path="/contact" element={<ContactUs />} />
               </Route>
