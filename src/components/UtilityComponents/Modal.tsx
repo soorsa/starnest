@@ -1,6 +1,6 @@
 // components/Modal.tsx
+import { X } from "lucide-react";
 import { useEffect } from "react";
-import { IoClose } from "react-icons/io5";
 import { useLocation } from "react-router-dom";
 import { useModal } from "../../zustand/modal.state";
 
@@ -32,17 +32,17 @@ const Modal = () => {
       // onClick={closeModal}
     >
       <div
-        className={`bg-white p-10 rounded-[25px] shadow-lg w-fit relative ${
+        className={`bg-white p-3 sm:p-6 rounded-md sm:rounded-lg shadow-lg w-fit relative ${
           pathname === "/admin" && ""
         }`}
         onClick={(e) => e.stopPropagation()}
       >
         <button
-          className="absolute top-4 right-3 text-gray-600 hover:text-gray-900"
+          className="absolute -top-12 right-0 p-1 text-gray-500 hover:text-gray-900 bg-white border border-gray-300 rounded-md"
           onClick={closeModal}
           aria-label="Close Modal"
         >
-          <IoClose size={24} />
+          <X size={24} />
         </button>
         {content}
       </div>

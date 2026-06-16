@@ -5,11 +5,15 @@ import {
   PlusCircle,
   Timer,
   TrendingUp,
+  UserPlus,
 } from "lucide-react";
 import React from "react";
+import { useGetMyReferralStats } from "../../hooks/querys/useReferral";
 import { formatDate, formatPrice } from "../../utils/formatter";
 import { useModal } from "../../zustand/modal.state";
 import Button from "../GeneralComponent/Button";
+import CopyText from "../GeneralComponent/CopyText";
+import AddAccountModal from "./AddAccountModal";
 import ClearanceModal from "./ClearanceModal";
 import MakeDeposit from "./MakeDeposit";
 interface Prop {
@@ -17,6 +21,7 @@ interface Prop {
 }
 const PlanCardSummary: React.FC<Prop> = ({ userPlan }) => {
   const modal = useModal();
+  const { data, isLoading, isError } = useGetMyReferralStats();
   const { plan_object, progress_percentage } = userPlan;
   const today = new Date();
   const endDate = new Date(userPlan.end_date);
@@ -24,6 +29,9 @@ const PlanCardSummary: React.FC<Prop> = ({ userPlan }) => {
   const has_completed_payment = userPlan.progress_percentage >= 100;
   const is_ready_for_clearance =
     isMatured && has_completed_payment && userPlan.completed;
+  const openModalToAddAccount = () => {
+    modal.openModal(<AddAccountModal plan_id={userPlan.id} />);
+  };
   return (
     <div className="space-y-4 md:min-h-[80vh] md:max-h-[80vh] flex flex-col overflow-y-auto scrollbar-hide">
       {/* Progress Bars */}
@@ -73,8 +81,40 @@ const PlanCardSummary: React.FC<Prop> = ({ userPlan }) => {
           </div>
         </div>
       </div>
+      {!userPlan.sub_plan && (
+        <div className="p-4 bg-white rounded-2xl flex gap-2 text-gray-700 text-sm text-left">
+          <div className="space-y-2">
+            <div className="">
+              <div className="text-lg font-starnest-bold">
+                Refer Someone or Add Existing Account
+              </div>
+              <p className="">
+                To recieve reward please refer one person to do the same plan or
+                add an existing reffered account
+              </p>
+            </div>
+            <div className="grid grid-cols-2 gap-1.5">
+              <Button
+                icon={<UserPlus size={20} />}
+                label="Add account"
+                className="rounded-lg!"
+                onClick={openModalToAddAccount}
+              />
 
-      {is_ready_for_clearance && (
+              <CopyText
+                content={
+                  isLoading && isError
+                    ? "Loading..."
+                    : data?.referral_code || ""
+                }
+                truncate={false}
+                className="border border-gray-500"
+              />
+            </div>
+          </div>
+        </div>
+      )}
+      {!is_ready_for_clearance && userPlan.sub_plan && (
         <div className="p-4 bg-white rounded-2xl flex gap-1">
           <div className="text-left text-sm gap-2 flex-1">
             <div className="">Proceed to withdraw your reward and savings</div>

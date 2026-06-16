@@ -60,7 +60,7 @@ const ClearanceModal: React.FC<Prop> = ({ item }) => {
       >
         {({ isValid }) => {
           return (
-            <Form className="w-xl max-w-xs md:max-w-2xl grid md:grid-cols-2 gap-2 max-h-[75vh] overflow-y-auto scrollbar-hide">
+            <Form className="w-xl max-w-xs md:max-w-2xl grid md:grid-cols-2 gap-4 sm:gap-2 max-h-[75vh] overflow-y-auto scrollbar-hide">
               <div className="text-left md:col-span-2 bg-blue-500/5 p-2 text-sm rounded-xl flex items-start gap-2 text-blue-900 ">
                 <Info />
                 <span className="flex-1">
@@ -76,7 +76,7 @@ const ClearanceModal: React.FC<Prop> = ({ item }) => {
               <div className="text-left">
                 <div className="font-starnest-mid">Account Details:</div>
                 <hr className="text-gray-200 w-2/3 mb-4" />
-                <div className="">
+                <div className="space-y-3">
                   <InputField
                     name="account_name"
                     label="Full Name"

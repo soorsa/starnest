@@ -6,7 +6,7 @@ import InfoCard from "../../components/DashboardComponents/InfoCard";
 import MakeReferralWithdrawal from "../../components/DashboardComponents/MakeReferralWithdrawal";
 import RefWithdrawalHistory from "../../components/DashboardComponents/ReferralWithdrawals";
 import {
-  useGetMyReferral,
+  useGetMyReferralStats,
   useGetRefWithdrawals,
 } from "../../hooks/querys/useReferral";
 import { formatPrice } from "../../utils/formatter";
@@ -19,7 +19,7 @@ const Referrals: React.FC = () => {
     data: referralStats,
     isLoading: loadingReferralStats,
     isError: ReferralStatsError,
-  } = useGetMyReferral();
+  } = useGetMyReferralStats();
   const { data, isLoading, isError } = useGetRefWithdrawals();
 
   const handleCopy = async () => {

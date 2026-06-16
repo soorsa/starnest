@@ -61,6 +61,7 @@ interface UserSavingPlan {
   hands: number;
   payment_schedule: PaymentSchedule[];
   user: User;
+  sub_plan: UserSavingPlan;
 }
 
 interface FilterParams {
@@ -202,6 +203,10 @@ interface MakeDepositPayload {
 interface ClearancePayload {
   id: number;
 }
+interface AddSubAccountPayload {
+  plan_id: number;
+  sub_plan_id: number;
+}
 interface CreatePlanPayload {
   image: File | null;
   name: string;
@@ -286,4 +291,21 @@ interface UserReferralStat {
   referral_code: string;
   referral_earnings: string;
   total_referrals: number;
+}
+
+interface UserReferrals {
+  id: number;
+  email: string;
+  fullname: number;
+}
+
+interface EligiblePlan {
+  id: number;
+  name: string;
+  target: number;
+  reward: number;
+  amount_paid: number;
+  hands: number;
+  user_id: number;
+  user_name: string;
 }

@@ -200,3 +200,35 @@ export const useClearance = () => {
     },
   });
 };
+export const useAddSubAccount = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (payload: AddSubAccountPayload) => {
+      const res = await api.post(`/user-plans/add_sub_account/`, payload);
+      return res.data;
+    },
+    onSuccess: (data) => {
+      // Refetch relevant data if needed
+      queryClient.invalidateQueries({
+        queryKey: ["user-plans"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["user-plans-detail"],
+      });
+      if (data) {
+        toast.success(data.message);
+      } else toast.success("Add Account successfully");
+    },
+    onError: (error: AxiosError<ErrorResponse>) => {
+      // Check if this is an Axios error with response data
+      console.log(error);
+      if (error.response) {
+        const errorData = error.response.data;
+        const errorMessage = errorData.message || errorData.detail;
+        toast.error(errorMessage);
+      } else {
+        toast.error("Failed");
+      }
+    },
+  });
+};
