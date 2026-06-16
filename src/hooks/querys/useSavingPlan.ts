@@ -57,3 +57,15 @@ export const useGetUserPlanByID = (id: number) => {
     enabled: !!id,
   });
 };
+export const useGetEligiblePlansForReferral = (id?: number) => {
+  return useQuery<EligiblePlan[]>({
+    queryKey: ["eligible-plans-for-referral", id],
+    queryFn: async () => {
+      const { data } = await api.get(
+        `/user-plans/${id}/get_eligble_sub_accounts/`
+      ); // Adjust endpoint
+      return data;
+    },
+    enabled: !!id,
+  });
+};

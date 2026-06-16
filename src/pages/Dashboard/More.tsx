@@ -18,7 +18,7 @@ import Support from "../../components/DashboardComponents/Support";
 import Button from "../../components/GeneralComponent/Button";
 import CopyText from "../../components/GeneralComponent/CopyText";
 import ReferralSkeleton from "../../components/SkeletonsComponents/ReferralSkeleton";
-import { useGetMyReferral } from "../../hooks/querys/useReferral";
+import { useGetMyReferralStats } from "../../hooks/querys/useReferral";
 import { formatPrice } from "../../utils/formatter";
 import { useModal } from "../../zustand/modal.state";
 import { useUserState } from "../../zustand/user.state";
@@ -26,7 +26,7 @@ import { useUserState } from "../../zustand/user.state";
 const More = () => {
   const modal = useModal();
   const { user } = useUserState();
-  const { data, isLoading, isError } = useGetMyReferral();
+  const { data, isLoading, isError } = useGetMyReferralStats();
   const earnings = Number(data?.referral_earnings) || 0;
   const canWithdraw = earnings > 999;
   const links = [
